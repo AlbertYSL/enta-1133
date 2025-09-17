@@ -1,4 +1,4 @@
-﻿namespace AlbertDiceGame
+﻿namespace AlbertDiceGame.Scripts
 {
     internal class Program
     {
