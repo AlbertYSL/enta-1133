@@ -21,7 +21,8 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($"you got {d12}");
             Console.WriteLine($"you got {d20}");
             Console.WriteLine();
-            Console.WriteLine("Max Roll:");
+
+            Console.WriteLine("total you got: ");
             Console.WriteLine($"{d6 + d8 + d12 + d20}");
         }
     }
