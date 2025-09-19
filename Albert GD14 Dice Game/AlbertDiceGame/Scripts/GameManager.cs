@@ -21,8 +21,9 @@ namespace AlbertDiceGame.Scripts
         /// </summary>
         public void PlayGame()
         {
-            Console.WriteLine("Welcom Hellow Albert 2025.09.16");
+            Console.WriteLine("Welcome! Hello my name is Albert and today is 2025.09.16");
             Console.WriteLine("PlayGame Start");
+            Console.WriteLine();
             DiceRoller roller = new DiceRoller();
             //Console.WriteLine("New DiceRoller");
             DiceRoller.Dice();
@@ -33,7 +34,7 @@ namespace AlbertDiceGame.Scripts
             //OnPointAcquired(45);
             //int value = 5;
             //OnPointAcquired(value);
-
+            Console.WriteLine();
             Console.WriteLine("+ : Adds two operands (1 + 1 = 2)");
             Console.WriteLine("- : Sub the second operands from the first (2 - 1 = 1 )");
             Console.WriteLine("/ : Divides the first operands from the second ( 10 / 2 = 5)");
@@ -42,9 +43,9 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine("--: Decreases the value of a variable by 1 ( a = 5 ) ( --a = 4)");
             Console.WriteLine("% : Returns the remainder of an integer division ( 13 / 5 = 2...3) ( 13 % 5 = 3 )");
             //Console.WriteLine("OnPointAcquired");
-
+            Console.WriteLine();
             Console.WriteLine("PlayGame End");
-            Console.WriteLine("Goodbye c u");
+            Console.WriteLine("Goodbye see you next time~ ");
         }
         void OnPointAcquired(int pointValue)
         {
