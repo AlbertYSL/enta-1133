@@ -8,7 +8,7 @@
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.WriteLine("Program Start");
+                  Console.WriteLine("Program Start");
             GameManager manager = new GameManager();
             Console.WriteLine("New GameManager");
             manager.PlayGame();

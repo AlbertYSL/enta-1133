@@ -21,17 +21,27 @@ namespace AlbertDiceGame.Scripts
         /// </summary>
         public void PlayGame()
         {
+            Console.WriteLine("Welcom Hellow Albert 2025.09.16");
             Console.WriteLine("PlayGame Start");
             DiceRoller roller = new DiceRoller();
-            Console.WriteLine("DiceRoller");
+            Console.WriteLine("New DiceRoller");
+            DiceRoller.Dice();
             //OnPointAcquired();
             //OnPointAcquired(25);
             //OnPointAcquired(62);
             //OnPointAcquired(45);
             //int value = 5;
             //OnPointAcquired(value);
+            Console.WriteLine("+");
+            Console.WriteLine("-");
+            Console.WriteLine("/");
+            Console.WriteLine("*");
+            Console.WriteLine("++");
+            Console.WriteLine("--");
+            Console.WriteLine("%");
             Console.WriteLine("OnPointAcquired");
             Console.WriteLine("PlayGame End");
+            Console.WriteLine("Goodbye c u");
         }
         void OnPointAcquired(int pointValue)
         {
