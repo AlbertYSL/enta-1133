@@ -16,10 +16,10 @@ namespace AlbertDiceGame.Scripts
             int d12 = rm.Next(1, 13);
             int d20 = rm.Next(1, 21);
 
-            Console.WriteLine($"you got {d6}");
-            Console.WriteLine($"you got {d8}");
-            Console.WriteLine($"you got {d12}");
-            Console.WriteLine($"you got {d20}");
+            Console.WriteLine($"in d6 you got {d6}");
+            Console.WriteLine($"in d8 you got {d8}");
+            Console.WriteLine($"in d12 you got {d12}");
+            Console.WriteLine($"in d20 you got {d20}");
             Console.WriteLine();
 
             Console.WriteLine("total you got: ");
