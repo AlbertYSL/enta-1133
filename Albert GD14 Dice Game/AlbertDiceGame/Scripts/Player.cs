@@ -11,48 +11,60 @@ namespace AlbertDiceGame.Scripts
     {
         public static void Playerone()
         {
-            Console.WriteLine("Would you like to play?");
-
-            bool Yes = true;
-
-            if (Yes) 
-            {
-                Console.WriteLine("Let go !!");
-            }
-            else
-            {
-                Console.WriteLine("Okey, goodbye.");
-            }
-
-            Console.WriteLine();
+            DiceRoller roller = new DiceRoller();
+            ///Asking what's the player name, read the playername by userInput.
             string askenameMessge = "What is your name";
             Console.WriteLine(askenameMessge);
+            string playerName = Console.ReadLine();
 
-            Console.WriteLine();
-            Console.WriteLine("Want to give a try?");
-            Console.WriteLine();
-
-            bool Start = true;
-            bool Bye = false;
-
-            if (Start)
+            Console.WriteLine("Starting the Rules of the Game.");
+            string pressenterMessage = ("Please press Enter to continue.");
+            Console.WriteLine(pressenterMessage);
+            //Contiue to next event by pressing Space.
+            string userInput = Console.ReadLine();
+           if (userInput == "Enter")
             {
-                Console.WriteLine("Start the Game Rules.");
-            }
-            else if (Bye) 
-            {
-                Console.WriteLine("Bye, see you");
+                Console.WriteLine("Both players get five differnet dices (d6, d6, d8, d12, d20)");
+                Console.WriteLine("Then, randomly shoode one die.");
+                Console.WriteLine("After players have chosen, roll the dice.");
+                Console.WriteLine("Recore both plays' scores.");
+                Console.WriteLine("Continue 8 rounds.");
+                Console.WriteLine("At the end who got the most points win.");
             }
             else
             {
-                Console.WriteLine("Ha, Too late ~ Let start from game rules.");
+                Console.WriteLine("Both players get five differnet dices (d6, d6, d8, d12, d20)");
+                Console.WriteLine("Then, randomly shoode one die.");
+                Console.WriteLine("After players have chosen, roll the dice.");
+                Console.WriteLine("Recore both plays' scores.");
+                Console.WriteLine("Continue 8 rounds.");
+                Console.WriteLine("At the end who got the most points win.");
             }
+
+            Console.WriteLine();
+            /// Read the PlayerName
+            Console.WriteLine($"Now,{playerName} Would you like to play?? ");
+            Console.WriteLine("Yes = 1, No = 2");
+            userInput = Console.ReadLine();
+
+            if (userInput == "1")
+            {
+                Console.WriteLine("Let go !!");
+                Console.WriteLine();
+                DiceRoller.Dice();
+            }
+            else
+            {
+                Console.WriteLine("Too late ~ ~ Still need to play ^_^ ");
+                Console.WriteLine();
+                DiceRoller.Dice();
+            }            
 
 
             Console.WriteLine();
-            DiceRoller roller = new DiceRoller();
+            //DiceRoller roller = new DiceRoller();
             //Console.WriteLine("New DiceRoller");
-            DiceRoller.Dice();
+            //DiceRoller.Dice();
         }
     }
 }
