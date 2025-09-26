@@ -68,6 +68,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(playerreplayMessage);
             }
 
+
             Console.WriteLine();
             Random rm = new Random();
             Console.WriteLine("Let see who go first $_$");

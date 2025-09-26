@@ -67,6 +67,8 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(playerretypeMessage);
             }
 
+            int playerValue = RollDie(rm,chosenDic);
+
             //Console.WriteLine($"In d4 you got {d4}");
             //Console.WriteLine($"In d6 you got {d6}");
             //Console.WriteLine($"In d8 you got {d8}");
@@ -97,6 +99,47 @@ namespace AlbertDiceGame.Scripts
 
             //Console.WriteLine("total you got:");
             //Console.WriteLine($"{d4 + d6 + d8 + d12 + d20}");
+            Console.WriteLine();
+            int cpuValue;
+            string cpuDie = ComputerTurn(rm, out cpuValue);
+            if (playerValue > cpuValue)
+            {
+                Console.WriteLine("Player win this round!!!");
+            }
+            else if (playerValue < cpuValue)
+            {
+                Console.WriteLine("You lose at CPU this round ^_^ ");
+            }
+            else { Console.WriteLine("It's a tie ~~ "); }
+
+        }
+        public static string ComputerTurn(Random rm, out int cpuValue)
+        {
+            string[] diceTypes = { "d4", "d6", "d8", "d12", "d20" };
+            string cpuDie = diceTypes[rm.Next(diceTypes.Length)];
+            cpuValue = RollDie(rm, cpuDie);
+            return cpuDie;
+
+
+        }
+
+        public static int RollDie(Random rm, string die)
+        {
+            switch (die)
+            {
+                case "d4":
+                    return rm.Next(1, 5);
+                case "d6":
+                    return rm.Next(1, 6);
+                case "d8":
+                    return rm.Next(1, 9);
+                case "d12":
+                    return rm.Next(1, 13);
+                case "d20":
+                    return rm.Next(1, 21);
+                default: return 0;
+            }
+
         }
     }
 }
