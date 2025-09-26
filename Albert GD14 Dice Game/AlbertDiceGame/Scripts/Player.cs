@@ -16,15 +16,16 @@ namespace AlbertDiceGame.Scripts
             string askenameMessge = "What is your name";
             Console.WriteLine(askenameMessge);
             string playerName = Console.ReadLine();
+            Console.WriteLine();
 
             Console.WriteLine("Starting the Rules of the Game.");
-            string pressenterMessage = ("Please press Enter to continue.");
+            string pressenterMessage = "Please press Enter to continue.";
             Console.WriteLine(pressenterMessage);
             //Contiue to next event by pressing Space.
             string userInput = Console.ReadLine();
            if (userInput == "Enter")
             {
-                Console.WriteLine("Both players get five differnet dices (d6, d6, d8, d12, d20)");
+                Console.WriteLine("Both players get five differnet dices (d4, d6, d8, d12, d20)");
                 Console.WriteLine("Then, randomly shoode one die.");
                 Console.WriteLine("After players have chosen, roll the dice.");
                 Console.WriteLine("Recore both plays' scores.");
@@ -33,7 +34,7 @@ namespace AlbertDiceGame.Scripts
             }
             else
             {
-                Console.WriteLine("Both players get five differnet dices (d6, d6, d8, d12, d20)");
+                Console.WriteLine("Both players get five differnet dices (d4, d6, d8, d12, d20)");
                 Console.WriteLine("Then, randomly shoode one die.");
                 Console.WriteLine("After players have chosen, roll the dice.");
                 Console.WriteLine("Recore both plays' scores.");
@@ -45,23 +46,30 @@ namespace AlbertDiceGame.Scripts
             /// Read the PlayerName
             Console.WriteLine($"Now,{playerName} Would you like to play?? ");
             Console.WriteLine("Yes = 1, No = 2");
-            userInput = Console.ReadLine();
 
-            if (userInput == "1")
+            while (true)
             {
-                Console.WriteLine("Let go !!");
+                string playerreplayMessage = "1 or 2";
+                userInput = Console.ReadLine();
                 Console.WriteLine();
-                DiceRoller.Dice();
+                if (userInput == "1")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Let go !!");
+                    break;
+                }
+                else if (userInput == "2")
+                {
+                    Console.WriteLine("Too late ~ ~ Still need to play ^_^ ");
+                    break;
+                    Console.WriteLine();
+                }
+                else { Console.WriteLine("Only Yes or No ~ isn't that hard to read +_+"); }
+                Console.WriteLine(playerreplayMessage);
             }
-            else
-            {
-                Console.WriteLine("Too late ~ ~ Still need to play ^_^ ");
-                Console.WriteLine();
-                DiceRoller.Dice();
-            }            
-
 
             Console.WriteLine();
+            DiceRoller.Dice();
             //DiceRoller roller = new DiceRoller();
             //Console.WriteLine("New DiceRoller");
             //DiceRoller.Dice();
