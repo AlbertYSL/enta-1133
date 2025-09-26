@@ -15,7 +15,7 @@ namespace AlbertDiceGame.Scripts
         public static void Dice()
         {
             Random rm = new Random();
-            string[] diceType = { "Dice 4", "Dice 6", "Dice 8", "Dice 12", "Dice 20" };
+            string[] diceType = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
             string chosenDic = diceType[rm.Next(diceType.Length)];
 
 
@@ -40,7 +40,7 @@ namespace AlbertDiceGame.Scripts
                 if (userInput == "1")
                 {
                     Console.WriteLine($"you got {chosenDic} ~~~");
-                    break; /// noly when player type down 1 to 5, than they can continue. (break the loop)
+                    break; /// only when player type down 1 to 5, than they can continue. (break the loop)
                 }
                 else if (userInput == "2")
                 {
@@ -73,24 +73,24 @@ namespace AlbertDiceGame.Scripts
             //Console.WriteLine($"In d12 you got {d12}");
             //Console.WriteLine($"In d20 you got {d20}");
             //Console.WriteLine($"you got {chosenDic} ~~~ ");
-            //Console.WriteLine();
-            if (chosenDic == "Dice 4")
+            Console.WriteLine();
+            if (chosenDic == "Dice4")
             {
                 Console.WriteLine($"{d4} Points");
             }
-            else if (chosenDic == "Dice 6")
+            else if (chosenDic == "Dice6")
             {
                 Console.WriteLine($"{d6} Points");
             }
-            else if (chosenDic == "Dice 8")
+            else if (chosenDic == "Dice8")
             {
                 Console.WriteLine($"{d8} Points");
             }
-            else if (chosenDic == "Dice 12")
+            else if (chosenDic == "Dice12")
             {
                 Console.WriteLine($"{d12} Points");
             }
-            else if (chosenDic == "Dice 20")
+            else if (chosenDic == "Dice20")
             {
                 Console.WriteLine($"{d20} Points");
             }
