@@ -26,14 +26,14 @@ namespace AlbertDiceGame.Scripts
            if (userInput == "Enter")
             {
                 /// give the game rules
-                Console.WriteLine("Both players get five differnet dices (d4, d6, d8, d12, d20)");
-                Console.WriteLine("Then, randomly choose one die.");
-                Console.WriteLine("After players have chosen, roll the dice.");
-                Console.WriteLine("See who got the higher score.");
-                Console.WriteLine("Higher score win the that round.");
-                Console.WriteLine("After the round you need to rechoose a random dice.");
-                Console.WriteLine("Continue 8 rounds.");
-                Console.WriteLine("At the end who got the most rounds win.");
+                Console.WriteLine(" > Both players get five differnet dices (d4, d6, d8, d12, d20)");
+                Console.WriteLine(" > Then, randomly choose one die.");
+                Console.WriteLine(" > After players have chosen, roll the dice.");
+                Console.WriteLine(" > See who got the higher score.");
+                Console.WriteLine(" > Higher score win the that round.");
+                Console.WriteLine(" > After the round you need to rechoose a random dice.");
+                Console.WriteLine(" > Continue 8 rounds.");
+                Console.WriteLine(" > At the end who got the most rounds win.");
             }
             else
             {
