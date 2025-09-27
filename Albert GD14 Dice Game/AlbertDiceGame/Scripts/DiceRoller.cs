@@ -114,36 +114,36 @@ namespace AlbertDiceGame.Scripts
             if (chosenDic == "Dice4")
             {
                 Console.WriteLine();
-                Console.WriteLine("CPU choose Dice4");
-                Console.WriteLine($"Got {d4} points");
+                Console.WriteLine("CPU got Dice4");
+                Console.WriteLine($" {d4} points");
                 computerresult = d4;
             }
             else if (chosenDic == "Dice6")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice6");
-                Console.WriteLine($"Got {d6} points");
+                Console.WriteLine($"CPU got Dice6");
+                Console.WriteLine($" {d6} points");
                 computerresult = d6;
             }
             else if (chosenDic == "Dice8")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice8");
-                Console.WriteLine($"Got {d8} points");
+                Console.WriteLine($"CPU got Dice8");
+                Console.WriteLine($" {d8} points");
                 computerresult = d8;
             }
             else if (chosenDic == "Dice12")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice12");
-                Console.WriteLine($"Got {d12} points");
+                Console.WriteLine($"CPU got Dice12");
+                Console.WriteLine($" {d12} points");
                 computerresult = d12;
             }
             else if (chosenDic == "Dice20")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice20");
-                Console.WriteLine($"Got {d20} points");
+                Console.WriteLine($"CPU got Dice20");
+                Console.WriteLine($" {d20} points");
                 computerresult = d20;
             }
 
@@ -192,36 +192,36 @@ namespace AlbertDiceGame.Scripts
             if (chosenDic == "Dice4")
             {
                 Console.WriteLine();
-                Console.WriteLine("CPU choose Dice4");
-                Console.WriteLine($"Got {d4} points");
+                Console.WriteLine("CPU got Dice4");
+                Console.WriteLine($" {d4} points");
                 computerresult = d4;
             }
             else if (chosenDic == "Dice6")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice6");
-                Console.WriteLine($"Got {d6} points");
+                Console.WriteLine($"CPU got Dice6");
+                Console.WriteLine($" {d6} points");
                 computerresult = d6;
             }
             else if (chosenDic == "Dice8")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice8");
-                Console.WriteLine($"Got {d8} points");
+                Console.WriteLine($"CPU got Dice8");
+                Console.WriteLine($" {d8} points");
                 computerresult = d8;
             }
             else if (chosenDic == "Dice12")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice12");
-                Console.WriteLine($"Got {d12} points");
+                Console.WriteLine($"CPU got Dice12");
+                Console.WriteLine($" {d12} points");
                 computerresult = d12;
             }
             else if (chosenDic == "Dice20")
             {
                 Console.WriteLine();
-                Console.WriteLine($"CPU choose Dice20");
-                Console.WriteLine($"Got {d20} points");
+                Console.WriteLine($"CPU got Dice20");
+                Console.WriteLine($" {d20} points");
                 computerresult = d20;
             }
 
