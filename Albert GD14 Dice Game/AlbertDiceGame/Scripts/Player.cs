@@ -79,15 +79,20 @@ namespace AlbertDiceGame.Scripts
             {
                 Console.WriteLine();
                 Console.WriteLine($"{playerName} start first.");
+
+                DiceRoller.Dice();
+                Console.WriteLine();
             }
             else
             {
                 Console.WriteLine();
                 Console.WriteLine("Start from the opposite side");
+                DiceRoller.ComputerTurn();
+                Console.WriteLine();
             }
 
             Console.WriteLine();
-            DiceRoller.Dice();
+            //DiceRoller.DIce();
             //DiceRoller roller = new DiceRoller();
             //Console.WriteLine("New DiceRoller");
             //DiceRoller.Dice();

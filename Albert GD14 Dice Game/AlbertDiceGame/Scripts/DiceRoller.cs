@@ -27,6 +27,10 @@ namespace AlbertDiceGame.Scripts
             int d20 = rm.Next(1, 21);
             int[] diceResults = { d4, d6, d8, d12, d20 };
             int dc = diceResults[rm.Next(diceResults.Length)];
+            int playerresult = 0;
+            int computerresult = 0;
+            int playerscore = 0;
+            int computerscore = 0;
 
             string playerchoseDicMessage = "Now, please chose and type 1 to 5 the dice will be ramdomly given to you every round.";
             Console.WriteLine(playerchoseDicMessage);
@@ -67,7 +71,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(playerretypeMessage);
             }
 
-            int playerValue = RollDie(rm,chosenDic);
+            //int playerValue = RollDie(rm,chosenDic);
 
             //Console.WriteLine($"In d4 you got {d4}");
             //Console.WriteLine($"In d6 you got {d6}");
@@ -76,70 +80,236 @@ namespace AlbertDiceGame.Scripts
             //Console.WriteLine($"In d20 you got {d20}");
             //Console.WriteLine($"you got {chosenDic} ~~~ ");
             Console.WriteLine();
-            if (chosenDic == "Dice4")
+            if (chosenDic == "Dice4") ///when Dice4 jump out, the player can know the points they got.
             {
                 Console.WriteLine($"{d4} Points");
+                playerresult = d4;
             }
             else if (chosenDic == "Dice6")
             {
                 Console.WriteLine($"{d6} Points");
+                playerresult = d6;
             }
             else if (chosenDic == "Dice8")
             {
                 Console.WriteLine($"{d8} Points");
+                playerresult = d8;
             }
             else if (chosenDic == "Dice12")
             {
                 Console.WriteLine($"{d12} Points");
+                playerresult = d12;
             }
             else if (chosenDic == "Dice20")
             {
                 Console.WriteLine($"{d20} Points");
+                playerresult = d20;
             }
+
+            if (chosenDic == "Dice4")
+            {
+                Console.WriteLine();
+                Console.WriteLine("CPU choose Dice4");
+                Console.WriteLine($"Got {d4} points");
+                computerresult = d4;
+            }
+            else if (chosenDic == "Dice6")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice6");
+                Console.WriteLine($"Got {d6} points");
+                computerresult = d6;
+            }
+            else if (chosenDic == "Dice8")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice8");
+                Console.WriteLine($"Got {d8} points");
+                computerresult = d8;
+            }
+            else if (chosenDic == "Dice12")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice12");
+                Console.WriteLine($"Got {d12} points");
+                computerresult = d12;
+            }
+            else if (chosenDic == "Dice20")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice20");
+                Console.WriteLine($"Got {d20} points");
+                computerresult = d20;
+            }
+
 
             //Console.WriteLine("total you got:");
             //Console.WriteLine($"{d4 + d6 + d8 + d12 + d20}");
             Console.WriteLine();
-            int cpuValue;
-            string cpuDie = ComputerTurn(rm, out cpuValue);
-            if (playerValue > cpuValue)
+            if (computerresult > playerresult)
             {
-                Console.WriteLine("Player win this round!!!");
+                Console.WriteLine();
+                Console.WriteLine("You lose at CPU this round ~~ +_+");
+                computerscore = +1;
             }
-            else if (playerValue < cpuValue)
+            else if (computerresult < playerresult)
             {
-                Console.WriteLine("You lose at CPU this round ^_^ ");
+                Console.WriteLine();
+                Console.WriteLine("You WIN this round!!");
+                playerscore = +1;
             }
-            else { Console.WriteLine("It's a tie ~~ "); }
+            else if (computerresult == playerresult)
+            {
+                Console.WriteLine();
+                Console.WriteLine("It's a tie =.=");
+                playerscore = +1;
+                computerscore = +1;
+            }
 
+            Console.WriteLine() ;
+            Console.WriteLine(" Player: " + playerscore + " " + "----" + " " + "computer: " + computerscore) ;
         }
-        public static string ComputerTurn(Random rm, out int cpuValue)
+        public static void ComputerTurn()
         {
-            string[] diceTypes = { "d4", "d6", "d8", "d12", "d20" };
-            string cpuDie = diceTypes[rm.Next(diceTypes.Length)];
-            cpuValue = RollDie(rm, cpuDie);
-            return cpuDie;
+            Random rm = new Random();
+            int d4 = rm.Next(1, 5);
+            int d6 = rm.Next(1, 7);
+            int d8 = rm.Next(1, 9);
+            int d12 = rm.Next(1, 13);
+            int d20 = rm.Next(1, 21);
+            int playerresult = 0;
+            int computerresult = 0;
+            int playerscore = 0;
+            int computerscore = 0;
+            string[] diceType = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            string chosenDic = diceType[rm.Next(diceType.Length)];
 
-
-        }
-
-        public static int RollDie(Random rm, string die)
-        {
-            switch (die)
+            if (chosenDic == "Dice4")
             {
-                case "d4":
-                    return rm.Next(1, 5);
-                case "d6":
-                    return rm.Next(1, 6);
-                case "d8":
-                    return rm.Next(1, 9);
-                case "d12":
-                    return rm.Next(1, 13);
-                case "d20":
-                    return rm.Next(1, 21);
-                default: return 0;
+                Console.WriteLine();
+                Console.WriteLine("CPU choose Dice4");
+                Console.WriteLine($"Got {d4} points");
+                computerresult = d4;
+            }
+            else if (chosenDic == "Dice6")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice6");
+                Console.WriteLine($"Got {d6} points");
+                computerresult = d6;
+            }
+            else if (chosenDic == "Dice8")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice8");
+                Console.WriteLine($"Got {d8} points");
+                computerresult = d8;
+            }
+            else if (chosenDic == "Dice12")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice12");
+                Console.WriteLine($"Got {d12} points");
+                computerresult = d12;
+            }
+            else if (chosenDic == "Dice20")
+            {
+                Console.WriteLine();
+                Console.WriteLine($"CPU choose Dice20");
+                Console.WriteLine($"Got {d20} points");
+                computerresult = d20;
             }
 
+            Console.WriteLine();
+            string playerchoseDicMessage = "Now, please chose and type 1 to 5.";
+            Console.WriteLine(playerchoseDicMessage);
+            string userInput = "";
+            while (true)
+            {
+                string playerretypeMessage = "T Y P E 1, 2, 3, 4 or 5 @_@ ";
+                userInput = Console.ReadLine();
+                Console.WriteLine();
+
+                if (userInput == "1")
+                {
+                    Console.WriteLine($"you got {chosenDic} ~~~");
+                    break;
+                }
+                else if (userInput == "2")
+                {
+                    Console.WriteLine($"you got {chosenDic} ~~~");
+                    break;
+                }
+                else if (userInput == "3")
+                {
+                    Console.WriteLine($"you got {chosenDic} ~~~");
+                    break;
+                }
+                else if (userInput == "4")
+                {
+                    Console.WriteLine($"you got {chosenDic} ~~~");
+                    break;
+                }
+                else if (userInput == "5")
+                {
+                    Console.WriteLine($"you got {chosenDic} ~~~");
+                    break;
+                }
+                else { Console.WriteLine("Please Choose Again"); }
+                Console.WriteLine();
+                Console.WriteLine(playerretypeMessage);
+
+            }
+            Console.WriteLine();
+            if (chosenDic == "Dice4")
+            {
+                Console.WriteLine($"{d4} Points");
+                playerresult = d4;
+            }
+            else if (chosenDic == "Dice6")
+            {
+                Console.WriteLine($"{d6} Points");
+                playerresult = d6;
+            }
+            else if (chosenDic == "Dice8")
+            {
+                Console.WriteLine($"{d8} Points");
+                playerresult = d8;
+            }
+            else if (chosenDic == "Dice12")
+            {
+                Console.WriteLine($"{d12} Points");
+                playerresult = d12;
+            }
+            else if (chosenDic == "Dice20")
+            {
+                Console.WriteLine($"{d20} Points");
+                playerresult = d20;
+            }
+
+            Console.WriteLine();
+            if (computerresult > playerresult)
+            {
+                Console.WriteLine();
+                Console.WriteLine("You lose at CPU this round ~~ +_+");
+                computerscore = +1;
+            }
+            else if (computerresult < playerresult)
+            {
+                Console.WriteLine();
+                Console.WriteLine("You WIN this round!!");
+                playerscore = +1;
+            }
+            else if (computerresult == playerresult)
+            {
+                Console.WriteLine();
+                Console.WriteLine("It's a tie =.=");
+                playerscore = +1;
+                computerscore = +1;
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(" Player: " + playerscore + " " + "----" + " " + "computer: " + computerscore);
         }
     }
 }

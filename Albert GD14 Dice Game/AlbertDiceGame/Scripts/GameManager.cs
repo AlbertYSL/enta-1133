@@ -35,19 +35,9 @@ namespace AlbertDiceGame.Scripts
             //OnPointAcquired(value);
             //Console.WriteLine("OnPointAcquired");
             Console.WriteLine();
-            Console.WriteLine("PlayGame End");
-            Console.WriteLine("Goodbye see you next time~ ");
-        }
-        void OnPointAcquired(int pointValue)
-        {
-            int oldScore = score;
-            score += pointValue;
-            int pointDifference = score - oldScore;
-            string gained =
-                "You got point " + pointDifference + " points";
-
-            Console.WriteLine(gained);
-            Console.WriteLine(score);
+            Console.WriteLine("Thank you for playing, see you ^_^!!");
+            //Console.WriteLine("PlayGame End");
+            //Console.WriteLine("Goodbye see you next time~ ");
         }
     }
     
