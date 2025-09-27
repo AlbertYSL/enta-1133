@@ -172,7 +172,7 @@ namespace AlbertDiceGame.Scripts
             }
 
             Console.WriteLine() ;
-            Console.WriteLine(" Player: " + playerscore + " " + "----" + " " + "computer: " + computerscore) ;
+            Console.WriteLine(" Player: " + playerscore + "" + " Get: " +  playerresult + " " + "----" + " " + " Computer: " + computerscore + "" + " Get: " + computerresult) ;
         }
         public static void ComputerTurn()
         {
@@ -319,7 +319,7 @@ namespace AlbertDiceGame.Scripts
             }
 
             Console.WriteLine();
-            Console.WriteLine(" Player: " + playerscore + " " + "----" + " " + "computer: " + computerscore);
+            Console.WriteLine(" Player: " + playerscore + "" + " Get: " + playerresult + " " + "----" + " " + " Computer: " + computerscore + "" + " Get: " + computerresult);
         }
     }
 }
