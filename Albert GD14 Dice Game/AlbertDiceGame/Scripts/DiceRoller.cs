@@ -26,7 +26,7 @@ namespace AlbertDiceGame.Scripts
             int d8 = rm.Next(1, 9);
             int d12 = rm.Next(1, 13);
             int d20 = rm.Next(1, 21);
-            int[] diceResults = { d4, d6, d8, d12, d20 }; /// Letting the code know that diceResults = d4 to d20.
+            int[] diceResults = { d4, d6, d8, d12, d20 }; /// Letting the code know that diceResults [] = {d4 to d20}
             int dc = diceResults[rm.Next(diceResults.Length)]; ///using Length without -1 is because dont need max. By Random dicResults.
             int playerresult = 0;
             int computerresult = 0;
