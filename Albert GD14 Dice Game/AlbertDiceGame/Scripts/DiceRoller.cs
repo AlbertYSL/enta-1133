@@ -16,8 +16,8 @@ namespace AlbertDiceGame.Scripts
         public static void Dice()
         {
             Random rm = new Random();
-            string[] diceTypes = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
-            string chosenDice = diceTypes[rm.Next(diceTypes.Length)];
+            string[] diceTypes = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };/// Letting the code know that diceTypes [] = {Dice4 to Dice20}
+            string chosenDice = diceTypes[rm.Next(diceTypes.Length)];///using Length without -1 is because dont need max. By Random diceTypes.
 
 
 
