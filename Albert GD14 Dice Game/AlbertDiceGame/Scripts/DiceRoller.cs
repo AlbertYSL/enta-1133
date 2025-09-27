@@ -39,10 +39,10 @@ namespace AlbertDiceGame.Scripts
             while (true) ///if false will stay in the loop
             {
                 string playerretypeMessage = "T Y P E 1, 2, 3, 4 or 5 @_@ ";
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine(); /// player can type (userInput)  by using Console (show when code is running) ReadLine (place to type, ReadLine for Read).
                 Console.WriteLine();
 
-                if (userInput == "1")
+                if (userInput == "1") /// if player type 1, this code will open and show "you got {the random dice you get (Dice4 to Dice20) } ~~~".
                 {
                     Console.WriteLine($"you got {chosenDice} ~~~");
                     break; /// only when player type down 1 to 5, than they can continue. (break the loop)
