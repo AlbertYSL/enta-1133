@@ -69,7 +69,7 @@ namespace AlbertDiceGame.Scripts
                     break;
                     Console.WriteLine();
                 }
-                else { Console.WriteLine("Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
+                else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
                 Console.WriteLine(playerreplayMessage);
             }
 
