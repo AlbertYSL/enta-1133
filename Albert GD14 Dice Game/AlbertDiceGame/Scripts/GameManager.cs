@@ -25,7 +25,7 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine("This is a dice game we came up with.");
             Console.WriteLine();
             Player pr = new Player();
-            Player.Playerone();
+            Player.Playerone();/// open the playerone in the Player.cs
 
             //OnPointAcquired();
             //OnPointAcquired(25);

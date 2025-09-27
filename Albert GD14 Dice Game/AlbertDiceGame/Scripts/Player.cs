@@ -25,6 +25,7 @@ namespace AlbertDiceGame.Scripts
             string userInput = Console.ReadLine();
            if (userInput == "Enter")
             {
+                /// give the game rules
                 Console.WriteLine("Both players get five differnet dices (d4, d6, d8, d12, d20)");
                 Console.WriteLine("Then, randomly shoode one die.");
                 Console.WriteLine("After players have chosen, roll the dice.");
@@ -47,16 +48,16 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($"Now,{playerName} Would you like to play?? ");
             Console.WriteLine("Yes = 1, No = 2");
 
-            while (true)
+            while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
                 string playerreplayMessage = "1 or 2";
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine(); /// that the player type 1 or 2 for Yes or No
                 Console.WriteLine();
                 if (userInput == "1")
                 {
                     Console.WriteLine();
                     Console.WriteLine("Let go !!");
-                    break;
+                    break; /// Break the loop, so can go on to the next event.
                 }
                 else if (userInput == "2")
                 {
@@ -64,13 +65,13 @@ namespace AlbertDiceGame.Scripts
                     break;
                     Console.WriteLine();
                 }
-                else { Console.WriteLine("Only Yes or No ~ isn't that hard to read +_+ ..."); }
+                else { Console.WriteLine("Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
                 Console.WriteLine(playerreplayMessage);
             }
 
 
             Console.WriteLine();
-            Random rm = new Random();
+            Random rm = new Random(); /// making the random = rm
             Console.WriteLine("Let see who go first $_$");
             System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
             int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
@@ -78,16 +79,15 @@ namespace AlbertDiceGame.Scripts
             if (turn == 0)
             {
                 Console.WriteLine();
-                Console.WriteLine($"{playerName} start first.");
-
-                DiceRoller.Dice();
+                Console.WriteLine($"{playerName} start first."); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                DiceRoller.Dice(); /// open the Dice (player code) in DiceRoller.
                 Console.WriteLine();
             }
             else
             {
                 Console.WriteLine();
-                Console.WriteLine("Start from the opposite side");
-                DiceRoller.ComputerTurn();
+                Console.WriteLine("Start from the opposite side"); /// if 1 shows up than it'll be the CPU to start first.
+                DiceRoller.ComputerTurn();/// open the ComputerTurn (CPU code) in DiceRoller.
                 Console.WriteLine();
             }
 
