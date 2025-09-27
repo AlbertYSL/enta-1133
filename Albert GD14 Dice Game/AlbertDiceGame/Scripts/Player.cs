@@ -97,6 +97,8 @@ namespace AlbertDiceGame.Scripts
             //DiceRoller roller = new DiceRoller();
             //Console.WriteLine("New DiceRoller");
             //DiceRoller.Dice();
+            Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
         }
     }
+
 }

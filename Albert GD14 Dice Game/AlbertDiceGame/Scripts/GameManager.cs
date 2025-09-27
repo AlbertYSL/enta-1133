@@ -35,7 +35,7 @@ namespace AlbertDiceGame.Scripts
             //OnPointAcquired(value);
             //Console.WriteLine("OnPointAcquired");
             Console.WriteLine();
-            Console.WriteLine("Thank you for playing, see you ^_^!!");
+            //Console.WriteLine("Thank you for playing, see you ^_^!!");
             Console.WriteLine();
             //Console.WriteLine("PlayGame End");
             //Console.WriteLine("Goodbye see you next time~ ");
