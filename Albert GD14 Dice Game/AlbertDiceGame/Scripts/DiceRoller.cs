@@ -26,8 +26,8 @@ namespace AlbertDiceGame.Scripts
             int d8 = rm.Next(1, 9);
             int d12 = rm.Next(1, 13);
             int d20 = rm.Next(1, 21);
-            int[] diceResults = { d4, d6, d8, d12, d20 };
-            int dc = diceResults[rm.Next(diceResults.Length)];
+            int[] diceResults = { d4, d6, d8, d12, d20 }; /// Letting the code know that diceResults = d4 to d20.
+            int dc = diceResults[rm.Next(diceResults.Length)]; ///using Length without -1 is because dont need max. By Random dicResults.
             int playerresult = 0;
             int computerresult = 0;
             int playerscore = 0;
@@ -35,7 +35,7 @@ namespace AlbertDiceGame.Scripts
 
             string playerchoseDicMessage = "Now, please chose and type 1 to 5 the dice will be ramdomly given to you every round.";
             Console.WriteLine(playerchoseDicMessage);
-            string userInput = "";
+            string userInput = ""; 
             while (true) ///if false will stay in the loop
             {
                 string playerretypeMessage = "T Y P E 1, 2, 3, 4 or 5 @_@ ";
