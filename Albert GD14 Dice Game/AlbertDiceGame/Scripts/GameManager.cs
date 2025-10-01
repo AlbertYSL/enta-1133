@@ -21,7 +21,20 @@ namespace AlbertDiceGame.Scripts
         /// </summary>
         public void PlayGame()
         {
-            Console.WriteLine("Welcome! Hello my name is Albert and today is 2025.09.21");
+            /// add a @ for the ASCII code so the the space and the lines can be count and run or else the ASCII code will be a mass up.
+            Console.WriteLine(@"
+                                __        __   _                            _          _   _          
+                                \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___ 
+                                 \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \
+                                  \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/
+                                 __\_/\_/ \___|_|\___\___/|_| |_| |_|\___|__\__\___/   \__|_| |_|\___|
+                                |  ___|_ _| |_ ___  |  _ \(_) ___ ___   / ___| __ _ _ __ ___   ___    
+                                | |_ / _` | __/ _ \ | | | | |/ __/ _ \ | |  _ / _` | '_ ` _ \ / _ \   
+                                |  _| (_| | ||  __/ | |_| | | (_|  __/ | |_| | (_| | | | | | |  __/   
+                                |_|  \__,_|\__\___| |____/|_|\___\___|  \____|\__,_|_| |_| |_|\___|");
+
+            Console.WriteLine();
+            Console.WriteLine("My name is Albert");
             Console.WriteLine("This is a dice game we came up with.");
             Console.WriteLine();
             Player pr = new Player();

@@ -15,13 +15,16 @@ namespace AlbertDiceGame.Scripts
             ///Asking what's the player name, read the playername by userInput.
             string askenameMessge = "What is your name";
             Console.WriteLine(askenameMessge);
+            Console.WriteLine("******************************************************************");
             string playerName = Console.ReadLine();
             Console.WriteLine();
 
-            Console.WriteLine("Starting the Rules of the Game.");
-            string pressenterMessage = "Please press Enter to continue.";
+            Console.WriteLine(" > Starting the Rules of the Game.");
+            string pressenterMessage = " > Please press Enter to continue.";
             Console.WriteLine(pressenterMessage);
             //Contiue to next event by pressing Space.
+            Console.WriteLine();
+            Console.WriteLine("(＾.＾) (*^3^*) (>_<) (//3//) (* ω *) (= ω = ) (T....T) ( @.@ )");
             string userInput = Console.ReadLine();
            if (userInput == "Enter")
             {
@@ -65,7 +68,7 @@ namespace AlbertDiceGame.Scripts
                 }
                 else if (userInput == "2")
                 {
-                    Console.WriteLine("Too late ~ ~ Still need to play ^_^ ");
+                    Console.WriteLine("Too late ~ ~ Still need to play ^ . ^ ");
                     break;
                     Console.WriteLine();
                 }
@@ -83,8 +86,9 @@ namespace AlbertDiceGame.Scripts
             if (turn == 0)
             {
                 Console.WriteLine();
-                Console.WriteLine($"{playerName} start first."); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                Console.WriteLine($"{playerName} start first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
                 DiceRoller.Dice(); /// open the Dice (player code) in DiceRoller.
+                DiceRoller.ComputerTurn();///So it could run both
                 Console.WriteLine();
             }
             else
@@ -92,6 +96,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
                 Console.WriteLine("Start from the opposite side"); /// if 1 shows up than it'll be the CPU to start first.
                 DiceRoller.ComputerTurn();/// open the ComputerTurn (CPU code) in DiceRoller.
+                DiceRoller.Dice();
                 Console.WriteLine();
             }
 
