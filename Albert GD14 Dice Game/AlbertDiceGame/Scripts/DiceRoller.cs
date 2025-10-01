@@ -46,8 +46,7 @@ namespace AlbertDiceGame.Scripts
                 //int playerscore = 0;
                 //int computerscore = 0;
 
-                    string playerchoseDicMessage = "Chose your fate by type 1 to 5.";
-                Console.WriteLine("The dice will be ramdomly given to you every round.");
+                string playerchoseDicMessage = "Chose your fate by type 1 to 5.";
                 Console.WriteLine(playerchoseDicMessage);
                 string userInput = "";
                 while (true) ///if false will stay in the loop

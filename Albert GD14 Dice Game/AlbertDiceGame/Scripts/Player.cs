@@ -87,6 +87,7 @@ namespace AlbertDiceGame.Scripts
             {
                 Console.WriteLine();
                 Console.WriteLine($"{playerName} start first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                Console.WriteLine("The dice will be ramdomly given to you every round.");
                 DiceRoller.Dice(); /// open the Dice (player code) in DiceRoller.
                 DiceRoller.ComputerTurn();///So it could run both
                 Console.WriteLine();
@@ -95,6 +96,7 @@ namespace AlbertDiceGame.Scripts
             {
                 Console.WriteLine();
                 Console.WriteLine("Start from the opposite side"); /// if 1 shows up than it'll be the CPU to start first.
+                Console.WriteLine("The dice will be ramdomly given to you every round.");
                 DiceRoller.ComputerTurn();/// open the ComputerTurn (CPU code) in DiceRoller.
                 DiceRoller.Dice();
                 Console.WriteLine();
