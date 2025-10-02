@@ -76,6 +76,7 @@ namespace AlbertDiceGame.Scripts
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
                 DiceRoller dr = new DiceRoller();
+                CPU cpu = new CPU();
 
                 if (turn == 0)
                 {
@@ -88,9 +89,9 @@ namespace AlbertDiceGame.Scripts
                 else
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Start from the CPU one..."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine("Start from the cpu one...."); /// if 1 shows up than it'll be the CPU to start first.
                     Console.WriteLine("The dice will be ramdomly given to you every round.");
-                    dr.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
+                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
                     Console.WriteLine();
                 }
 
