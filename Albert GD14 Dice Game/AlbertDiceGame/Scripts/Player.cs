@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,14 +10,14 @@ namespace AlbertDiceGame.Scripts
 {
     internal class Player
     {
-        public static void Playerone()
+        public void Introduction()
         {
-            DiceRoller roller = new DiceRoller();
             ///Asking what's the player name, read the playername by userInput.
             string askenameMessge = "What is your name";
             Console.WriteLine(askenameMessge);
             Console.WriteLine("******************************************************************");
-            string playerName = Console.ReadLine();
+            string  playerName = Console.ReadLine();
+            Console.WriteLine("******************************************************************");
             Console.WriteLine();
 
             Console.WriteLine(" > Starting the Rules of the Game.");
@@ -26,29 +27,16 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine();
             Console.WriteLine("(＾.＾) (*^3^*) (>_<) (//3//) (* ω *) (= ω = ) (T....T) ( @.@ )");
             string userInput = Console.ReadLine();
-           if (userInput == "Enter")
-            {
-                /// give the game rules
-                Console.WriteLine(" > Both players get five differnet dices (d4, d6, d8, d12, d20)");
-                Console.WriteLine(" > Then, randomly choose one die.");
-                Console.WriteLine(" > After players have chosen, roll the dice.");
-                Console.WriteLine(" > See who got the higher score.");
-                Console.WriteLine(" > Higher score win the that round.");
-                Console.WriteLine(" > After the round you need to rechoose a random dice.");
-                Console.WriteLine(" > Continue 8 rounds.");
-                Console.WriteLine(" > At the end who got the most rounds win.");
-            }
-            else
-            {
-                Console.WriteLine(" > Both players get five differnet dices (d4, d6, d8, d12, d20)");
-                Console.WriteLine(" > Then, randomly choose one die.");
-                Console.WriteLine(" > After players have chosen, roll the dice.");
-                Console.WriteLine(" > See who got the higher score.");
-                Console.WriteLine(" > Higher score win the that round.");
-                Console.WriteLine(" > After the round you need to rechoose a random dice.");
-                Console.WriteLine(" > Continue 8 rounds.");
-                Console.WriteLine(" > At the end who got the most rounds win.");
-            }
+            userInput = "Enter";
+
+            Console.WriteLine(" > Both players get five differnet dices (d4, d6, d8, d12, d20)");
+            Console.WriteLine(" > Then, randomly choose one die.");
+            Console.WriteLine(" > After players have chosen, roll the dice.");
+            Console.WriteLine(" > See who got the higher score.");
+            Console.WriteLine(" > Higher score win the that round.");
+            Console.WriteLine(" > After the round you need to rechoose a random dice.");
+            Console.WriteLine(" > Continue 8 rounds.");
+            Console.WriteLine(" > At the end who got the most rounds win.");
 
             Console.WriteLine();
             /// Read the PlayerName
@@ -78,37 +66,56 @@ namespace AlbertDiceGame.Scripts
 
 
             Console.WriteLine();
-            Random rm = new Random(); /// making the random = rm
-            Console.WriteLine("Let see who go first $_$");
-            System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-            int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
 
-            if (turn == 0)
+            bool onemoreTime = true;
+            while (onemoreTime)
             {
                 Console.WriteLine();
-                Console.WriteLine($"{playerName} start first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
-                Console.WriteLine("The dice will be ramdomly given to you every round.");
-                DiceRoller.Dice(); /// open the Dice (player code) in DiceRoller.
-                DiceRoller.ComputerTurn();///So it could run both
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine("Start from the opposite side"); /// if 1 shows up than it'll be the CPU to start first.
-                Console.WriteLine("The dice will be ramdomly given to you every round.");
-                DiceRoller.ComputerTurn();/// open the ComputerTurn (CPU code) in DiceRoller.
-                DiceRoller.Dice();
-                Console.WriteLine();
-            }
+                Random rm = new Random(); /// making the random = rm
+                Console.WriteLine("Let see who go first $_$");
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
+                DiceRoller dr = new DiceRoller();
 
+                if (turn == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"{playerName} start first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                    Console.WriteLine("The dice will be ramdomly given to you every round.");
+                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Start from the CPU one..."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine("The dice will be ramdomly given to you every round.");
+                    dr.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
+                    Console.WriteLine();
+                }
+
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or 2 = no");
+                userInput = Console.ReadLine();
+                onemoreTime = (userInput == "1");
+                Console.WriteLine();
+                if (onemoreTime)
+                {
+                    Console.Clear();
+                }
+
+            }
             Console.WriteLine();
-            //DiceRoller.DIce();
-            //DiceRoller roller = new DiceRoller();
-            //Console.WriteLine("New DiceRoller");
-            //DiceRoller.Dice();
             Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
+            Console.WriteLine(@" 
+                                 ______   _______   ______   _______        ____    _____     ____  
+                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
+                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
+                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
+                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
+                                                                           \____/            \____/  ");
         }
+        
     }
 
 }

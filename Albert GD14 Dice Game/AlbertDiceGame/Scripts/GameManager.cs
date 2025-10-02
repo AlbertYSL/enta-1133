@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +10,6 @@ namespace AlbertDiceGame.Scripts
 {
     internal class GameManager
     {
-        //private int score = 0;
-        private void OnPointAcquired()
-        {
-            //score++;
-            //string gainedMessage = "You got point";
-            //Console.WriteLine(gainedMessage);
-            //Console.WriteLine(score);
-        }
         /// <summary>
         /// This is the Start of the Game.
         /// </summary>
@@ -37,21 +31,9 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine("My name is Albert");
             Console.WriteLine("This is a dice game we came up with.");
             Console.WriteLine();
-            Player pr = new Player();
-            Player.Playerone();/// open the playerone in the Player.cs
 
-            //OnPointAcquired();
-            //OnPointAcquired(25);
-            //OnPointAcquired(62);
-            //OnPointAcquired(45);
-            //int value = 5;
-            //OnPointAcquired(value);
-            //Console.WriteLine("OnPointAcquired");
-            Console.WriteLine();
-            //Console.WriteLine("Thank you for playing, see you ^_^!!");
-            Console.WriteLine();
-            //Console.WriteLine("PlayGame End");
-            //Console.WriteLine("Goodbye see you next time~ ");
+            Player pr = new Player();
+            pr.Introduction();/// open the playerone in the Player.cs
         }
     }
     

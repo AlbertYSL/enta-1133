@@ -13,7 +13,7 @@ namespace AlbertDiceGame.Scripts
 {
     internal class DiceRoller
     {
-        public static void Dice()
+        public void PlayerOne()
         {
             Random rm = new Random();
             int playerresult = 0;
@@ -28,6 +28,8 @@ namespace AlbertDiceGame.Scripts
 
             for (int round = 1; round <= totalRound; round++)
             {
+                System.Threading.Thread.Sleep(2000); ///Stop for 2 sec to wait the result.
+
                 Console.WriteLine($"\n===== Round {round}/{totalRound} =====");
                 /// by using \n so it'll shows the countinue of the lines.
                 string chosenDice = diceTypes[rm.Next(diceTypes.Length)];///using Length without -1 is because dont need max. By Random diceTypes.
@@ -57,27 +59,27 @@ namespace AlbertDiceGame.Scripts
 
                     if (userInput == "1") /// if player type 1, this code will open and show "you got {the random dice you get (Dice4 to Dice20) } ~~~".
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"You got {chosenDice} ~~~");
                         break; /// only when player type down 1 to 5, than they can continue. (break the loop)
                     }
                     else if (userInput == "2")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"You got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "3")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"You got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "4")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"You got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "5")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"You got {chosenDice} ~~~");
                         break;
                     }
                     else { Console.WriteLine(" > Please Choose Again <"); } ///No break so will get back to the choosing part.
@@ -199,7 +201,7 @@ namespace AlbertDiceGame.Scripts
             else
                 Console.WriteLine("NT you got a tied, with CPU ? NT HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
         }
-        public static void ComputerTurn()
+        public void ComputerOne()
         {
             Random rand = new Random();
 
@@ -214,6 +216,8 @@ namespace AlbertDiceGame.Scripts
 
             for (int round = 1; round <= totalRounds; round++)
             {
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+
                 Console.WriteLine($"\n===== Round {round}/{totalRounds} =====");
                 string chosenDic = diceType[rand.Next(diceType.Length)];
 
