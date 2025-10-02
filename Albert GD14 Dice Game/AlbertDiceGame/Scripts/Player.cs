@@ -68,7 +68,7 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine();
 
             bool onemoreTime = true;
-            while (onemoreTime)
+            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
             {
                 Console.WriteLine();
                 Random rm = new Random(); /// making the random = rm
@@ -102,7 +102,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
                 if (onemoreTime)
                 {
-                    Console.Clear();
+                    Console.Clear(); /// 
                 }
 
             }
