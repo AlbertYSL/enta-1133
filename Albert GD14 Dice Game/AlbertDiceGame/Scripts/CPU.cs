@@ -17,16 +17,26 @@ namespace AlbertDiceGame.Scripts
             int playerscore = 0;
             int computerscore = 0;
 
-            int totalRounds = 8;
+            List<string> cpuDiceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> cpuDiceSide = new List<int> { 4, 6, 8, 12, 20 };
+
+            List<string> diceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> diceSides = new List<int> { 4, 6, 8, 12, 20 };
+
+
+            int totalRounds = diceName.Count;
 
             string[] diceType = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
 
             for (int round = 1; round <= totalRounds; round++)
             {
-                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                System.Threading.Thread.Sleep(2000); ///Stop for 2 sec to wait the result.
+
+                int cpuindex = rand.Next(cpuDiceSide.Count);
+                int cpuSide = cpuDiceSide[cpuindex];
 
                 Console.WriteLine($"\n===== Round {round}/{totalRounds} =====");
-                string chosenDic = diceType[rand.Next(diceType.Length)];
+                string chosenDic = cpuDiceName[cpuindex];
 
                 int d4 = rand.Next(1, 5);
                 int d6 = rand.Next(1, 7);
@@ -71,10 +81,13 @@ namespace AlbertDiceGame.Scripts
                 }
 
                 Console.WriteLine();
+                int prindex = rand.Next(diceSides.Count);
+                int sides = diceSides[prindex];
+                string chosenDice = diceName[prindex];
 
                 string[] diceTypes = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
-                string chosenDice = diceTypes[rand.Next(diceType.Length)];
-                string playerchoseDicMessage = "Now, chose your fate --- type 1 to 5.";
+                string playerchoseDicMessage = "- - - Now, chose your fate --- type 1 to 5.";
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
                 Console.WriteLine(playerchoseDicMessage);
                 string userInput = "";
                 while (true)
@@ -85,27 +98,27 @@ namespace AlbertDiceGame.Scripts
 
                     if (userInput == "1")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "2")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "3")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($">you got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "4")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
                         break;
                     }
                     else if (userInput == "5")
                     {
-                        Console.WriteLine($"you got {chosenDice} ~~~");
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
                         break;
                     }
                     else { Console.WriteLine(" > Please Choose Again <"); }
@@ -146,24 +159,74 @@ namespace AlbertDiceGame.Scripts
                 if (computerresult > playerresult)
                 {
                     Console.WriteLine();
-                    Console.WriteLine(" >> " + "You lose at CPU this round ~~ +_+" + " << ");
-                    computerscore = +1;
+                    Console.WriteLine(" >>>> " + "You lose at CPU this round ~~ +_+" + " <<<< ");
+                    computerscore += 1;
                 }
                 else if (computerresult < playerresult)
                 {
                     Console.WriteLine();
-                    Console.WriteLine(" >> " + "You WIN this round!!" + " << ");
-                    playerscore = +1;
+                    Console.WriteLine(" >>>> " + "You WIN this round!!" + " <<<< ");
+                    playerscore += 1;
                 }
                 else if (computerresult == playerresult)
                 {
                     Console.WriteLine();
-                    Console.WriteLine(" >> " + "It's a tie =.=" + " << ");
-                    playerscore = +1;
-                    computerscore = +1;
+                    Console.WriteLine(" >>>> " + "It's a tie =.=" + " <<<< ");
+                    playerscore += 1;
+                    computerscore += 1;
+                }
+                Console.WriteLine() ;
+
+                diceName.RemoveAt(prindex);
+                diceSides.RemoveAt(prindex);
+
+                if (diceName.Count > 0)
+                ///check if there still got any dice, if < 0 than it'll stop.
+                {
+                    System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                    Console.WriteLine(" >> Your remain FATE :");
+                    Console.WriteLine();
+                    ///let the player know if there Stll Got dice or not.
+                    for (int i = 0; i < diceName.Count; i++)
+                    /// use a loop to print the dice. (i == 0) the first dice, when ++ than (i == 1) the scond dice.
+                    {
+                        if (i == 0)
+                        ///print the dice name so the player can know what fate he/she still got left.
+                        {
+                            Console.WriteLine(" >>> " + diceName [i] + " <<< ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" >>> " + diceName [i] + " <<< ");
+                        }
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine("  - - - - - - - - - - - - - ");
+
+                cpuDiceName.RemoveAt(cpuindex);
+                cpuDiceSide.RemoveAt(cpuindex);
+
+                if (cpuDiceName.Count > 0)
+                {
+                    Console.WriteLine(" > CPU still got :");
+                    Console.WriteLine();
+                    for (int i = 0; i < cpuDiceName.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                    }
                 }
 
+
                 Console.WriteLine();
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 Console.WriteLine(" Player: " + playerscore + " points" + $" < Round {round} get: " + playerresult + " >" + " " + "----" + " " + " Computer: " + computerscore + " points" + $" < Round {round} get: " + computerresult + " >");
             }
 

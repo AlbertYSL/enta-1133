@@ -34,13 +34,15 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine(" > After players have chosen, roll the dice.");
             Console.WriteLine(" > See who got the higher score.");
             Console.WriteLine(" > Higher score win the that round.");
+            Console.WriteLine(" > The dice you had chosen will be gone for the rest of the game. ");
             Console.WriteLine(" > After the round you need to rechoose a random dice.");
-            Console.WriteLine(" > Continue 8 rounds.");
+            Console.WriteLine(" > Continue untill both of the players dices are all been used.");
             Console.WriteLine(" > At the end who got the most rounds win.");
+            Console.WriteLine();
+            Console.WriteLine("( @.@ ) (T....T) (= ω = ) (* ω *) (//3//) (>_<) (*^3^*) (＾.＾)");
 
             Console.WriteLine();
-            /// Read the PlayerName
-            Console.WriteLine($"Now,{playerName} Would you like to play?? ");
+            Console.WriteLine($"Now,{playerName} Would you like to play?? ");/// Read the PlayerName
             Console.WriteLine("Yes = 1, No = 2");
 
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
@@ -96,17 +98,17 @@ namespace AlbertDiceGame.Scripts
                 }
 
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or 2 = no");
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or 2 = no <<<<");
                 userInput = Console.ReadLine();
                 onemoreTime = (userInput == "1");
                 Console.WriteLine();
                 if (onemoreTime)
                 {
-                    Console.Clear(); /// 
+                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
                 }
-
             }
-            Console.WriteLine();
+
+            System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
             Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
             Console.WriteLine(@" 
                                  ______   _______   ______   _______        ____    _____     ____  
