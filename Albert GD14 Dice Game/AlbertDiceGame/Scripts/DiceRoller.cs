@@ -37,7 +37,7 @@ namespace AlbertDiceGame.Scripts
 
             for (int round = 1; round <= totalRounds; round++)
             {
-                System.Threading.Thread.Sleep(2500); ///Stop for 2.5 sec to wait the result.
+                System.Threading.Thread.Sleep(2000); ///Stop for 2 sec to wait the result.
 
                 int prindex = rm.Next(diceSide.Count);
                 int sides = diceSide[prindex];
@@ -235,15 +235,18 @@ namespace AlbertDiceGame.Scripts
                         }
                     }
                 }
-
                 Console.WriteLine();
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 Console.WriteLine(" Player: " + playerscore + " points" + $" < Round {round} get: " + playerresult + " >" + " " + "----" + " " + " Computer: " + computerscore + " points" + $" < Round {round} get: " + computerresult + " >");
                 Console.WriteLine();
-                Console.WriteLine();
             }
-            //rounds end
-            Console.WriteLine("\n****** GAME RESULT ******");
+
+            System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+            ///rounds end
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\n              ******** GAME RESULT ******");
+            Console.WriteLine();
             if (playerscore > computerscore)
                 Console.WriteLine("Your a lucky player ~~ HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
 

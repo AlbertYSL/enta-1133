@@ -230,7 +230,10 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(" Player: " + playerscore + " points" + $" < Round {round} get: " + playerresult + " >" + " " + "----" + " " + " Computer: " + computerscore + " points" + $" < Round {round} get: " + computerresult + " >");
             }
 
-            Console.WriteLine("\n****** GAME RESULT ******");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\n             ****** GAME RESULT ******");
+            Console.WriteLine();
             if (playerscore > computerscore)
                 Console.WriteLine("Your a lucky player ~~ HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
 
