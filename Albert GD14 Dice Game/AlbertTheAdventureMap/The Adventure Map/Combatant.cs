@@ -1,6 +1,6 @@
 ﻿namespace The_Adventure_Map
 {
-    internal class Program
+    internal class Combatant
     {
         static void Main(string[] args)
         {
