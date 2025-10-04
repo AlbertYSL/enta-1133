@@ -241,19 +241,33 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
             }
 
-            System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+            System.Threading.Thread.Sleep(1300); ///Stop for 1.3 sec to wait the result.
             ///rounds end
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("\n              ******** GAME RESULT ******");
             Console.WriteLine();
-            if (playerscore > computerscore)
-                Console.WriteLine("Your a lucky player ~~ HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
-
-            else if (playerscore < computerscore)
-                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT" + " ---- " + " player: " + playerscore + " ---- " + " CPU: "+ computerscore);
+            if (playerscore > computerscore) ///if playerrescore higher than cpuscore than print.
+            {
+                Console.WriteLine("Your a lucky player ~~ HA" );
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
+            else if (playerscore < computerscore)///if playerscore smaller than cpuscore than print.
+            {
+                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore) ;
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
             else
-                Console.WriteLine("NT you got a tied, with CPU ? NT HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
+            {
+                Console.WriteLine("NT you got a tied, with CPU ? NT HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
         }
     }
 }

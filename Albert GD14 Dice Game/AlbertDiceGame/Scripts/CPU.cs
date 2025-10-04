@@ -235,12 +235,26 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine("\n             ****** GAME RESULT ******");
             Console.WriteLine();
             if (playerscore > computerscore)
-                Console.WriteLine("Your a lucky player ~~ HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
-
+            {
+                Console.WriteLine("Your a lucky player ~~ HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
             else if (playerscore < computerscore)
-                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
+            {
+                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
             else
-                Console.WriteLine("NT you got a tied, with CPU ? NT HA" + " ---- " + " player: " + playerscore + " ---- " + " CPU: " + computerscore);
+            {
+                Console.WriteLine("NT you got a tied, with CPU ? NT HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
         }
     }
 }
