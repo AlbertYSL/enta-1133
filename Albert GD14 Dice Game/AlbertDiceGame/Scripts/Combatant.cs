@@ -58,14 +58,13 @@ namespace AlbertDiceGame.Scripts
         public void GameStart()
         {
             Console.WriteLine($"\n Welcome {playerName} the Maze Explorer!");
-            Console.WriteLine("Are you ready for the Adventure? 1 = Yes, 2 = No");
-
-            string userInput = Console.ReadLine();
+            
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
-                string playerreplayMessage = "1 or 2";
-                userInput = Console.ReadLine(); /// that the player type 1 or 2 for Yes or No
+                Console.WriteLine("Are you ready for the Adventure? 1 = Yes, 2 = No");
+                string userInput = Console.ReadLine();
                 Console.WriteLine();
+
                 if (userInput == "1")
                 {
                     Console.WriteLine();
@@ -75,11 +74,9 @@ namespace AlbertDiceGame.Scripts
                 else if (userInput == "2")
                 {
                     Console.WriteLine("Ok, see you.");
-                    break;
-                    Console.WriteLine();
+                    return;
                 }
                 else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
-                Console.WriteLine(playerreplayMessage);
             }
 
             Console.WriteLine("====== Dice of Fath ======");
@@ -93,7 +90,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
-                if (choice == "1") { current.OnRoomEntered(this); InsideRoom(); }
+                if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }
                 else if (choice == "2") { AskMove(); }
                 else if (choice == "3") { bag.Print(); }
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
@@ -110,6 +107,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(" > 1 = search the door, 2 = check your bag, 3 = check your hp, 4 = go to another room");
 
                 var choice = Console.ReadLine();
+
                 if (choice == "1") current.OnRoomSearched(this);
                 else if (choice == "2") bag.Print();
                 else if (choice == "3") Console.WriteLine($"{playerName} got: {hp}");
@@ -129,7 +127,11 @@ namespace AlbertDiceGame.Scripts
             else if (mov == "s") Move(current.South, +1, 0);
             else if (mov == "a") Move(current.West, 0, -1);
             else if (mov == "d") Move(current.East, 0, +1);
-            else Console.WriteLine($" {playerName} please enter w, a ,s or d");
+            else { Console.WriteLine($" {playerName} please enter w, a ,s or d"); }
+
+            Console.WriteLine();
+            current.OnRoomEntered(this);
+            ShowMap();
         }
 
         private void Move(Room next, int dR, int dC)
@@ -210,6 +212,21 @@ namespace AlbertDiceGame.Scripts
             curCl = 1;
             current = rooms[4]; /// center room of the map
             Console.WriteLine($" > {playerName} start from this room, let's goooo! ");
+        }
+        public void ShowMap()
+        {
+            Console.WriteLine();
+            for (int r = 0; r < 3; r++)/// r = 0 is the first row and every time player run once it will moved to next one by ++ = +1
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    if (r == curRw && c == curCl)
+                        Console.Write("[X]");/// use console.write for not changing the line into next line
+                    else Console.Write("[ ]");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }
