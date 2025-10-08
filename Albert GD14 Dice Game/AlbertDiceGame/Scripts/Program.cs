@@ -7,8 +7,10 @@
         /// </summary>
         static void Main(string[] args)
         {
-            GameManager manager = new GameManager();
-            manager.PlayGame();
+           //GameManager manager = new GameManager();
+           //manager.PlayGame();
+           Combatant combatant = new Combatant();
+            combatant.GameStart();
         }
     }
 }
