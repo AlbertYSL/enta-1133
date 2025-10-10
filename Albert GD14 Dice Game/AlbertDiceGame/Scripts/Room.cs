@@ -44,7 +44,7 @@ namespace AlbertDiceGame.Scripts
         {
             if (!taken)///if ! = not taken it'll randonly shows the item you got.
             {
-                string[] items = { "Short Sword", "Long Sword", "Bow and Arrow", "Potion" };
+                string[] items = { "d4, d6, d8, d12, d20", "Potion", "Long Sword", "Arrow and Bow", "Short Sword" };
                 string found = items[rd.Next(items.Length)];
 
                 Console.WriteLine($"you found {found}! ");

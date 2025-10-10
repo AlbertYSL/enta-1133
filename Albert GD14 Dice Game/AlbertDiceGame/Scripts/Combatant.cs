@@ -45,10 +45,15 @@ namespace AlbertDiceGame.Scripts
             playerName = Console.ReadLine();
 
             Console.WriteLine();
-            ///basic map 
+            ///basic map detail
             BuildFixedRooms();
             LinkNeighbors();
             SetStartAtCenter();
+        }
+
+        public void TakeDamage(int damage)
+        {
+            hp -= damage;
         }
 
         public void AddToBag(string items)
@@ -146,9 +151,9 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
-                if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }
-                else if (choice == "2") { AskMove(); }
-                else if (choice == "3") { dice.Print(); }
+                if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }/// when type 1 the current room itself(this) will be open and also showmap and what's inside tha room will be open too by insideroom()
+                else if (choice == "2") { AskMove(); }/// type 2 will beable to open the AskMove code 
+                else if (choice == "3") { dice.Print(); }/// cause the bag code is in the diceroller part (player class) so use dice.Print to link and open it.
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
             }
