@@ -36,6 +36,7 @@ namespace AlbertDiceGame.Scripts
             }
             Console.WriteLine($" Item number: {bag.Count}");
         }
+
         public void PlayerOne()
         {
             Random rm = new Random();

@@ -11,7 +11,7 @@ namespace AlbertDiceGame.Scripts
 {
     internal class Combatant
     {
-        private int hp = 100; /// player hp start from 100
+        public int hp = 100; /// player hp start from 100
         private readonly DiceRoller dice; /// player bag 
         private readonly Random rd; 
         private string playerName; ///player name
@@ -46,7 +46,7 @@ namespace AlbertDiceGame.Scripts
 
             Console.WriteLine();
             ///basic map detail
-            BuildFixedRooms();
+            BuildRandomRooms();
             LinkNeighbors();
             SetStartAtCenter();
         }
@@ -207,24 +207,31 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($" {playerName} move to ({curRw}, {curCl})");
         }
 
-        private void BuildFixedRooms()
+        private void BuildRandomRooms()
         {
             rooms.Clear(); /// clear the rooms
 
-            ///The first row
-            rooms.Add(new EncounterRoom { Row = 0, Col = 0 });
-            rooms.Add(new TreasureRoom { Row = 0, Col = 1 });
-            rooms.Add(new EncounterRoom { Row = 0, Col = 2 });
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    rooms.Add(new TreasureRoom { Row = r , Col = c });
+                }
+            }
 
-            ///The second row
-            rooms.Add(new TreasureRoom { Row = 1, Col = 0 });
-            rooms.Add(new BasicRoom { Row = 1, Col = 1 });
-            rooms.Add(new TreasureRoom { Row = 1, Col = 2 });
+            rooms[4] = new BasicRoom { Row = 1 , Col = 1 }; /// set the middle spown room, so it will not invote into the random.
 
-            ///The third row
-            rooms.Add(new TreasureRoom { Row = 2, Col = 0 });
-            rooms.Add(new TreasureRoom { Row = 2, Col = 1 });
-            rooms.Add(new EncounterRoom { Row = 2, Col = 2 });
+            Random rdm = new Random();
+            int monster = 0;
+            while (monster < 3)///only 3 random room will be change into monster room.
+            {
+                int pos = rdm.Next(0, 9);
+                if (pos == 4 ) continue; /// if the pos (position) is 4 than cant be the middle room
+                if (rooms[pos] is MonsterRoom) continue; /// if the room already is a monster room than it'll jump over to next room for choosing the random room
+                
+                rooms[pos] = new MonsterRoom {Row = pos / 3, Col = pos % 3}; /// use postition / by 3 to see which row should it be. use position % 3 to see which column.
+                monster++;/// to see if there already a monster than jump to next random chose and add one until 3 monster room shows.
+            }
         }
 
         private void LinkNeighbors()

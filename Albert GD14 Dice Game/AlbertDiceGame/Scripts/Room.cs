@@ -59,7 +59,7 @@ namespace AlbertDiceGame.Scripts
         }
     }
 
-    internal class EncounterRoom : Room
+    internal class MonsterRoom : Room
     {
         private bool firstTime = true;
         public override void OnRoomEntered(Combatant player)
