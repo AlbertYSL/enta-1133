@@ -13,6 +13,29 @@ namespace AlbertDiceGame.Scripts
 {
     internal class DiceRoller
     {
+
+        private List<string> bag = new List<string>();
+
+        public void AddItem(string name)
+        {
+            bag.Add(name);
+            Console.WriteLine($" you got {name}");
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("your bag: ");
+            if (bag.Count == 0)
+            {
+                Console.WriteLine("(empty)");
+                return;
+            }
+            for (int i = 0; i < bag.Count; i++)
+            {
+                Console.WriteLine($"[{i}] {bag[i]}");
+            }
+            Console.WriteLine($" Item number: {bag.Count}");
+        }
         public void PlayerOne()
         {
             Random rm = new Random();

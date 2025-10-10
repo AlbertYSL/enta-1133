@@ -12,7 +12,7 @@ namespace AlbertDiceGame.Scripts
     internal class Combatant
     {
         private int hp = 100; /// player hp start from 100
-        private readonly Inventory bag; /// player bag 
+        private readonly DiceRoller dice; /// player bag 
         private readonly Random rd; 
         private string playerName; ///player name
 
@@ -25,10 +25,22 @@ namespace AlbertDiceGame.Scripts
         public Combatant()
         {
             rd = new Random();
-            bag = new Inventory();
             rooms = new List<Room>();
+            dice = new DiceRoller();
             Console.WriteLine();
 
+            Console.WriteLine(@"
+                                __        __   _                            _          _   _          
+                                \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___ 
+                                 \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \
+                                  \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/
+                                 __\_/\_/ \___|_|\___\___/|_| |_| |_|\___|__\__\___/   \__|_| |_|\___|
+                                |  ___|_ _| |_ ___  |  _ \(_) ___ ___   / ___| __ _ _ __ ___   ___    
+                                | |_ / _` | __/ _ \ | | | | |/ __/ _ \ | |  _ / _` | '_ ` _ \ / _ \   
+                                |  _| (_| | ||  __/ | |_| | | (_|  __/ | |_| | (_| | | | | | |  __/   
+                                |_|  \__,_|\__\___| |____/|_|\___\___|  \____|\__,_|_| |_| |_|\___|");
+
+            Console.WriteLine();
             Console.WriteLine("What is your name Maze Explorer: "); /// asking name of the player
             playerName = Console.ReadLine();
 
@@ -41,7 +53,7 @@ namespace AlbertDiceGame.Scripts
 
         public void AddToBag(string items)
         {
-            bag.AddItem(items);/// makesure that bag is in Inventory
+            dice.AddItem(items);/// makesure that bag is in Inventory
         }
 
         public string GetName()
@@ -51,8 +63,52 @@ namespace AlbertDiceGame.Scripts
 
         public void StartEncounterLoop() ///call out the battle
         {
-            Console.WriteLine("[Encounter] Strat ");
-            Console.WriteLine("[Encounter] End");
+            //GameManager diceGame = new GameManager();
+            //diceGame.PlayGame();
+            Console.WriteLine("[Fath] Strat ");
+            bool onemoreTime = true;
+            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
+            {
+                Console.WriteLine();
+                Random rm = new Random(); /// making the random = rm
+                Console.WriteLine("Let's see who goes first $_$");
+                Console.WriteLine(" > please type enter to continue");
+                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++");
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
+                DiceRoller dr = new DiceRoller();
+                CPU cpu = new CPU();
+
+                string userInput = Console.ReadLine();
+
+                if (turn == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"{playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
+                    Console.WriteLine();
+                }
+
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else = no <<<<");
+                userInput = Console.ReadLine();
+                onemoreTime = (userInput == "1");
+                Console.WriteLine();
+                if (onemoreTime)
+                {
+                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
+                }
+            }
+            Console.WriteLine("[Fath] End");
         }
 
         public void GameStart()
@@ -92,7 +148,7 @@ namespace AlbertDiceGame.Scripts
                 var choice = Console.ReadLine();
                 if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }
                 else if (choice == "2") { AskMove(); }
-                else if (choice == "3") { bag.Print(); }
+                else if (choice == "3") { dice.Print(); }
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
             }
@@ -109,7 +165,7 @@ namespace AlbertDiceGame.Scripts
                 var choice = Console.ReadLine();
 
                 if (choice == "1") current.OnRoomSearched(this);
-                else if (choice == "2") bag.Print();
+                else if (choice == "2") dice.Print();
                 else if (choice == "3") Console.WriteLine($"{playerName} got: {hp}");
                 else if (choice == "4") { AskMove(); inside = false; }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
@@ -226,7 +282,7 @@ namespace AlbertDiceGame.Scripts
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine();
         }
+        
     }
 }

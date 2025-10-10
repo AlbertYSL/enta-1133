@@ -16,7 +16,7 @@ namespace AlbertDiceGame.Scripts
             string askenameMessge = "What is your name";
             Console.WriteLine(askenameMessge);
             Console.WriteLine("******************************************************************");
-            string  playerName = Console.ReadLine();
+            string playerName = Console.ReadLine();
             Console.WriteLine("******************************************************************");
             Console.WriteLine();
 
@@ -65,11 +65,9 @@ namespace AlbertDiceGame.Scripts
                 else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
                 Console.WriteLine(playerreplayMessage);
             }
-
-
-            Console.WriteLine();
-
-            bool onemoreTime = true;
+        
+                Console.WriteLine();
+                bool onemoreTime = true;
             while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
             {
                 Console.WriteLine();
@@ -79,6 +77,7 @@ namespace AlbertDiceGame.Scripts
                 int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
                 DiceRoller dr = new DiceRoller();
                 CPU cpu = new CPU();
+
 
                 if (turn == 0)
                 {
@@ -107,7 +106,6 @@ namespace AlbertDiceGame.Scripts
                     Console.Clear(); ///clear all the rounds and restart from choose who go first.
                 }
             }
-
             System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
             Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
             Console.WriteLine(@" 
@@ -118,7 +116,7 @@ namespace AlbertDiceGame.Scripts
                                 |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
                                                                            \____/            \____/  ");
         }
-        
+
     }
 
 }

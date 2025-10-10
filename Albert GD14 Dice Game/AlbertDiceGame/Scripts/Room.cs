@@ -42,7 +42,7 @@ namespace AlbertDiceGame.Scripts
 
         public override void OnRoomSearched(Combatant player)
         {
-            if (!taken)
+            if (!taken)///if ! = not taken it'll randonly shows the item you got.
             {
                 string[] items = { "Short Sword", "Long Sword", "Bow and Arrow", "Potion" };
                 string found = items[rd.Next(items.Length)];
@@ -52,7 +52,7 @@ namespace AlbertDiceGame.Scripts
 
                 taken = true;
             }
-            else
+            else/// if already taken it'll shows that the box is empty
             {
                 Console.WriteLine(" The box is empty ");
             }
