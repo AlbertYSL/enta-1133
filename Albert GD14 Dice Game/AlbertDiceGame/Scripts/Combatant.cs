@@ -13,7 +13,7 @@ namespace AlbertDiceGame.Scripts
     {
         public int hp = 100; /// player hp start from 100
         private readonly DiceRoller dice; /// player bag 
-        private readonly Random rd; 
+        Random rd = new Random();
         private string playerName; ///player name
 
         private readonly int rows = 3; /// 3 X 3 rooms map
@@ -94,7 +94,7 @@ namespace AlbertDiceGame.Scripts
                 ///Let the player chose what they want to do next by type down 1, 2, 3, 4.
                 Console.WriteLine(" > 2 = dont enter the room ");
                 Console.WriteLine(" > 3 = check your bag ");
-                Console.WriteLine(" 4 = check your hp ");
+                Console.WriteLine(" > 4 = check your hp ");
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
