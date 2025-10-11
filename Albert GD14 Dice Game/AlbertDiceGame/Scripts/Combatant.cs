@@ -12,11 +12,11 @@ namespace AlbertDiceGame.Scripts
     internal class Combatant
     {
         public int hp = 100; /// player hp start from 100
-        DiceRoller dice = new DiceRoller();/// player bag 
+        DiceRoller dice = new DiceRoller();
         Random rd = new Random();
         private string playerName; ///player name
 
-        private readonly int rows = 3; /// 3 X 3 rooms map
+        private readonly int rows = 3;/// lock it down for only 3 X 3 rooms map
         private readonly int cols = 3;
         private List<Room> rooms; /// make a list to every rooms I got
         private Room current; /// set the current room that the player is at
@@ -24,7 +24,6 @@ namespace AlbertDiceGame.Scripts
 
         public Combatant()
         {
-            rd = new Random();
             rooms = new List<Room>();
             dice = new DiceRoller();
             Console.WriteLine();
@@ -251,9 +250,9 @@ namespace AlbertDiceGame.Scripts
         {
             ///connet the 9 rooms 
             ///First row
-            rooms[0].East = rooms[1];// (0, 0) go right (0, 1)
-            rooms[0].South = rooms[3];// (0, 0) go down (1, 0)
-
+            rooms[0].East = rooms[1];// (0, 0) go right (0, 1)       [0] [1] [2]
+            rooms[0].South = rooms[3];// (0, 0) go down (1, 0)       [3] [4] [5]
+                                      //                             [6] [7] [8]
             rooms[1].West = rooms[0];
             rooms[1].East = rooms[2];
             rooms[1].South = rooms[4];
