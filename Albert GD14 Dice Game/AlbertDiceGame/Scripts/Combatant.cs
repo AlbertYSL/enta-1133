@@ -34,10 +34,6 @@ namespace AlbertDiceGame.Scripts
             playerName = Console.ReadLine();
 
             Console.WriteLine();
-            ///basic map detail
-            BuildRandomRooms();
-            LinkNeighbors();
-            SetStartAtCenter();
         }
 
         public void TakeDamage(int damage)
@@ -55,64 +51,16 @@ namespace AlbertDiceGame.Scripts
             return playerName; ///Let the code know the playername so it can be used
         }
 
-        public void StartMonsterLoop() ///call out the battle
-        {
-            //GameManager diceGame = new GameManager();
-            //diceGame.PlayGame();
-            Console.WriteLine("[Battle] Strat ");
-            bool onemoreTime = true;
-            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
-            {
-                Console.WriteLine();
-                Random rm = new Random(); /// making the random = rm
-                Console.WriteLine(">>Let's see who goes first $_$");
-                Console.WriteLine(" > please type enter to start the FATH ");
-                Console.WriteLine();
-                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
-                DiceRoller dr = new DiceRoller();
-                CPU cpu = new CPU();
-
-                string userInput = Console.ReadLine();
-
-                if (turn == 0)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($" * {playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
-                    Console.WriteLine();
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine(" * Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
-                    Console.WriteLine();
-                }
-
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else to countinue your adventure <<<<");
-                userInput = Console.ReadLine();
-                onemoreTime = (userInput == "1");
-                Console.WriteLine();
-                if (onemoreTime)
-                {
-                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
-                }
-            }
-            Console.WriteLine("[Battle] End");
-        }
-
         public void GameStart()
         {
             Console.WriteLine($"\n Welcome {playerName} the Maze Explorer!");
             
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
-                Console.WriteLine(" Are you ready for the Adventure? 1 = Yes, 2 = No");
+                Console.WriteLine(" Are you ready for the Adventure? ");
+                Console.WriteLine(" > 1 = Yes ");
+                Console.WriteLine(" > 2 = No ") ;
+
                 string userInput = Console.ReadLine();
                 Console.WriteLine();
 
@@ -131,13 +79,22 @@ namespace AlbertDiceGame.Scripts
             }
 
             Console.WriteLine("====== Dice of Fath ======");
+            Console.WriteLine() ;
+
+            ///basic call for the rooms and start center 
+            BuildRandomRooms();
+            LinkNeighbors();
+            SetStartAtCenter();
 
             while (true)
             {
                 Console.WriteLine();
                 Console.WriteLine($"\n > now {playerName} there is a door infront to you, what do you want to do next?");
-                Console.WriteLine(" > 1 = enter the room, 2 = dont enter the room, 3 = check your bag, 4 = check your hp");
+                Console.WriteLine(" > 1 = enter the room ");
                 ///Let the player chose what they want to do next by type down 1, 2, 3, 4.
+                Console.WriteLine(" > 2 = dont enter the room ");
+                Console.WriteLine(" > 3 = check your bag ");
+                Console.WriteLine(" 4 = check your hp ");
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
@@ -156,6 +113,7 @@ namespace AlbertDiceGame.Scripts
             curCl = 1;
             current = rooms[4]; /// center room of the map
             Console.WriteLine($" > {playerName} start from this room, let's goooo! ");
+            ShowMap();
         }
 
         private void InsideRoom() /// set the code when the player is inside the room
@@ -164,7 +122,11 @@ namespace AlbertDiceGame.Scripts
             while (inside)
             {
                 Console.WriteLine($"\n {playerName} had enter the room, what are you going to do next?");
-                Console.WriteLine(" > 1 = search the door, 2 = check your bag, 3 = check your hp, 4 = go to another room");
+                Console.WriteLine(" >> 1 = search the door ");
+                Console.WriteLine(" >> 2 = check your bag ");
+                Console.WriteLine(" >> 3 = check your hp ");
+                Console.WriteLine(" >> 4 = go to another room ");
+                Console.WriteLine();
 
                 var choice = Console.ReadLine();
 
@@ -231,6 +193,57 @@ namespace AlbertDiceGame.Scripts
                 rooms[pos] = new MonsterRoom {Row = pos / 3, Col = pos % 3}; /// use postition / by 3 to see which row should it be. use position % 3 to see which column.
                 monster++;/// to see if there already a monster than jump to next random chose and add one until 3 monster room shows.
             }
+        }
+
+        public void StartMonsterLoop() ///call out the battle
+        {
+            //GameManager diceGame = new GameManager();
+            //diceGame.PlayGame();
+            Console.WriteLine("[Battle] Strat ");
+            bool onemoreTime = true;
+            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
+            {
+                Console.WriteLine();
+                Random rm = new Random(); /// making the random = rm
+                Console.WriteLine(">>Let's see who goes first $_$");
+                Console.WriteLine(" > please type enter to start the FATH ");
+                Console.WriteLine();
+                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
+                DiceRoller dr = new DiceRoller();
+                CPU cpu = new CPU();
+
+                string userInput = Console.ReadLine();
+
+                if (turn == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" * {playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" * Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
+                    Console.WriteLine();
+                }
+
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else to countinue your adventure <<<<");
+                userInput = Console.ReadLine();
+                onemoreTime = (userInput == "1");
+                Console.WriteLine();
+                if (onemoreTime)
+                {
+                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
+                }
+            }
+            Console.WriteLine("[Battle] End");
         }
 
         private void LinkNeighbors()
