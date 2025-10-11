@@ -61,13 +61,13 @@ namespace AlbertDiceGame.Scripts
 
     internal class MonsterRoom : Room
     {
-        private bool firstTime = true;
+        private bool firstTime = true;/// when first time the player enter the monster room than the 
         public override void OnRoomEntered(Combatant player)
         {
             if (firstTime)
             {
                 Console.WriteLine($" {player.GetName()} a monster jump infront of you !!");
-                player.StartEncounterLoop();
+                player.StartMonsterLoop();
                 firstTime = false;
             }
             else

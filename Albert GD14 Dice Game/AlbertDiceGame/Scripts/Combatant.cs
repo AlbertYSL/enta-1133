@@ -29,17 +29,6 @@ namespace AlbertDiceGame.Scripts
             dice = new DiceRoller();
             Console.WriteLine();
 
-            Console.WriteLine(@"
-                                __        __   _                            _          _   _          
-                                \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___ 
-                                 \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | __| '_ \ / _ \
-                                  \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/
-                                 __\_/\_/ \___|_|\___\___/|_| |_| |_|\___|__\__\___/   \__|_| |_|\___|
-                                |  ___|_ _| |_ ___  |  _ \(_) ___ ___   / ___| __ _ _ __ ___   ___    
-                                | |_ / _` | __/ _ \ | | | | |/ __/ _ \ | |  _ / _` | '_ ` _ \ / _ \   
-                                |  _| (_| | ||  __/ | |_| | | (_|  __/ | |_| | (_| | | | | | |  __/   
-                                |_|  \__,_|\__\___| |____/|_|\___\___|  \____|\__,_|_| |_| |_|\___|");
-
             Console.WriteLine();
             Console.WriteLine("What is your name Maze Explorer: "); /// asking name of the player
             playerName = Console.ReadLine();
@@ -66,19 +55,20 @@ namespace AlbertDiceGame.Scripts
             return playerName; ///Let the code know the playername so it can be used
         }
 
-        public void StartEncounterLoop() ///call out the battle
+        public void StartMonsterLoop() ///call out the battle
         {
             //GameManager diceGame = new GameManager();
             //diceGame.PlayGame();
-            Console.WriteLine("[Fath] Strat ");
+            Console.WriteLine("[Battle] Strat ");
             bool onemoreTime = true;
             while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
             {
                 Console.WriteLine();
                 Random rm = new Random(); /// making the random = rm
-                Console.WriteLine("Let's see who goes first $_$");
-                Console.WriteLine(" > please type enter to continue");
-                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine(">>Let's see who goes first $_$");
+                Console.WriteLine(" > please type enter to start the FATH ");
+                Console.WriteLine();
+                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
                 DiceRoller dr = new DiceRoller();
@@ -89,7 +79,7 @@ namespace AlbertDiceGame.Scripts
                 if (turn == 0)
                 {
                     Console.WriteLine();
-                    Console.WriteLine($"{playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                    Console.WriteLine($" * {playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
                     Console.WriteLine("The dice will be randomly given to you every round.");
                     dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
                     Console.WriteLine();
@@ -97,14 +87,14 @@ namespace AlbertDiceGame.Scripts
                 else
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine(" * Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
                     Console.WriteLine("The dice will be randomly given to you every round.");
                     cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
                     Console.WriteLine();
                 }
 
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else = no <<<<");
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else to countinue your adventure <<<<");
                 userInput = Console.ReadLine();
                 onemoreTime = (userInput == "1");
                 Console.WriteLine();
@@ -113,7 +103,7 @@ namespace AlbertDiceGame.Scripts
                     Console.Clear(); ///clear all the rounds and restart from choose who go first.
                 }
             }
-            Console.WriteLine("[Fath] End");
+            Console.WriteLine("[Battle] End");
         }
 
         public void GameStart()
@@ -122,7 +112,7 @@ namespace AlbertDiceGame.Scripts
             
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
-                Console.WriteLine("Are you ready for the Adventure? 1 = Yes, 2 = No");
+                Console.WriteLine(" Are you ready for the Adventure? 1 = Yes, 2 = No");
                 string userInput = Console.ReadLine();
                 Console.WriteLine();
 
@@ -159,6 +149,15 @@ namespace AlbertDiceGame.Scripts
             }
         }
 
+
+        private void SetStartAtCenter()
+        {
+            curRw = 1;
+            curCl = 1;
+            current = rooms[4]; /// center room of the map
+            Console.WriteLine($" > {playerName} start from this room, let's goooo! ");
+        }
+
         private void InsideRoom() /// set the code when the player is inside the room
         {
             bool inside = true; /// if the player is inside the room = ture, so the code will run
@@ -181,10 +180,10 @@ namespace AlbertDiceGame.Scripts
         private void AskMove()/// if the player choiced 4 than this code will run by asking what is their next move 
         {
             Console.WriteLine($"{playerName} where do you wnat to expore?");
-            Console.WriteLine(" W = going up, A = going left, S = going down, D = going rihgt"); /// the way the player want to go to by typing w, a, s, d
+            Console.WriteLine(" W = North, A = South, S = West, D = East"); /// the way the player want to go to by typing w, a, s, d
             string mov = Console.ReadLine();
 
-            if (mov == "w") Move(current.North, -1, 0);
+            if (mov == "w") Move(current.North, -1, 0); /// set w == to going North (up) and -1, 0 = one step up
             else if (mov == "s") Move(current.South, +1, 0);
             else if (mov == "a") Move(current.West, 0, -1);
             else if (mov == "d") Move(current.East, 0, +1);
@@ -274,13 +273,6 @@ namespace AlbertDiceGame.Scripts
             rooms[8].West = rooms[7];
         }
 
-        private void SetStartAtCenter()
-        {
-            curRw = 1;
-            curCl = 1;
-            current = rooms[4]; /// center room of the map
-            Console.WriteLine($" > {playerName} start from this room, let's goooo! ");
-        }
         public void ShowMap()
         {
             Console.WriteLine();
