@@ -77,7 +77,7 @@ namespace AlbertDiceGame.Scripts
                 else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
             }
 
-            Console.WriteLine("====== Dice of Fath ======");
+            Console.WriteLine("====== Dice of Fate ======");
             Console.WriteLine() ;
 
             ///basic call for the rooms and start center 
@@ -142,7 +142,7 @@ namespace AlbertDiceGame.Scripts
         {
             Console.WriteLine();
             Console.WriteLine($"{playerName} where do you wnat to expore?");
-            Console.WriteLine(" W = North, A = South, S = West, D = East"); /// the way the player want to go to by typing w, a, s, d
+            Console.WriteLine(" w = North, a = West, s = South, d = East"); /// the way the player want to go to by typing w, a, s, d
             string mov = Console.ReadLine();
 
             if (mov == "w") Move(current.North, -1, 0); /// set w == to going North (up) and -1, 0 = one step up
@@ -200,13 +200,14 @@ namespace AlbertDiceGame.Scripts
             //GameManager diceGame = new GameManager();
             //diceGame.PlayGame();
             Console.WriteLine("[Battle] Strat ");
+            ShowMap();
             bool onemoreTime = true;
             while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
             {
                 Console.WriteLine();
                 Random rm = new Random(); /// making the random = rm
                 Console.WriteLine(">>Let's see who goes first $_$");
-                Console.WriteLine(" > please type enter to start the FATH ");
+                Console.WriteLine(" > please type enter to start the your FATE battle ");
                 Console.WriteLine();
                 Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
