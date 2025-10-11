@@ -141,6 +141,7 @@ namespace AlbertDiceGame.Scripts
 
         private void AskMove()/// if the player choiced 4 than this code will run by asking what is their next move 
         {
+            Console.WriteLine();
             Console.WriteLine($"{playerName} where do you wnat to expore?");
             Console.WriteLine(" W = North, A = South, S = West, D = East"); /// the way the player want to go to by typing w, a, s, d
             string mov = Console.ReadLine();
