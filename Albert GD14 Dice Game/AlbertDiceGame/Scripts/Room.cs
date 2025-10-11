@@ -18,12 +18,12 @@ namespace AlbertDiceGame.Scripts
         public Room East { get; set; }
         public Room West { get; set; }
 
-        public virtual void OnRoomEntered(Combatant player)
+        public virtual void RoomEntered(Combatant player)
         {
             Console.WriteLine($" > {player.GetName()} enter a normal room ");
         }
 
-        public virtual void OnRoomSearched(Combatant player)
+        public virtual void RoomSearched(Combatant player)
         {
             Console.WriteLine(" > There's nothing here ");
         }
@@ -40,7 +40,7 @@ namespace AlbertDiceGame.Scripts
  
         private static Random rd = new Random();
 
-        public override void OnRoomSearched(Combatant player)
+        public override void RoomSearched(Combatant player)
         {
             if (!taken)///if ! = not taken it'll randonly shows the item you got.
             {
@@ -62,7 +62,7 @@ namespace AlbertDiceGame.Scripts
     internal class MonsterRoom : Room
     {
         private bool firstTime = true;/// when first time the player enter the monster room than the 
-        public override void OnRoomEntered(Combatant player)
+        public override void RoomEntered(Combatant player)
         {
             if (firstTime)
             {
@@ -79,7 +79,7 @@ namespace AlbertDiceGame.Scripts
     
     internal class BasicRoom : Room
     {
-        public override void OnRoomEntered(Combatant player)
+        public override void RoomEntered(Combatant player)
         {
             Console.WriteLine($" > {player.GetName()} start at this room ");
         }

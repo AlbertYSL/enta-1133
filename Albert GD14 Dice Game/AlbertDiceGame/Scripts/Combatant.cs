@@ -12,7 +12,7 @@ namespace AlbertDiceGame.Scripts
     internal class Combatant
     {
         public int hp = 100; /// player hp start from 100
-        private readonly DiceRoller dice; /// player bag 
+        DiceRoller dice = new DiceRoller();/// player bag 
         Random rd = new Random();
         private string playerName; ///player name
 
@@ -82,8 +82,8 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine() ;
 
             ///basic call for the rooms and start center 
-            BuildRandomRooms();
-            LinkNeighbors();
+            RandomRooms();
+            LinkRooms();
             SetStartAtCenter();
 
             while (true)
@@ -98,7 +98,7 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
-                if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }/// when type 1 the current room itself(this) will be open and also showmap and what's inside tha room will be open too by insideroom()
+                if (choice == "1") { current.RoomEntered(this); ShowMap(); InsideRoom(); }/// when type 1 the current room itself(this) will be open and also showmap and what's inside tha room will be open too by insideroom()
                 else if (choice == "2") { AskMove(); }/// type 2 will beable to open the AskMove code 
                 else if (choice == "3") { dice.Print(); }/// cause the bag code is in the diceroller part (player class) so use dice.Print to link and open it.
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
@@ -130,7 +130,7 @@ namespace AlbertDiceGame.Scripts
 
                 var choice = Console.ReadLine();
 
-                if (choice == "1") current.OnRoomSearched(this);
+                if (choice == "1") current.RoomSearched(this);
                 else if (choice == "2") dice.Print();
                 else if (choice == "3") Console.WriteLine($"{playerName} got: {hp}");
                 else if (choice == "4") { AskMove(); inside = false; }
@@ -153,7 +153,7 @@ namespace AlbertDiceGame.Scripts
             else { Console.WriteLine($" {playerName} please enter w, a ,s or d"); }
 
             Console.WriteLine();
-            current.OnRoomEntered(this);
+            current.RoomEntered(this);
             ShowMap();
         }
 
@@ -169,7 +169,7 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($" {playerName} move to ({curRw}, {curCl})");
         }
 
-        private void BuildRandomRooms()
+        private void RandomRooms()
         {
             rooms.Clear(); /// clear the rooms
 
@@ -247,7 +247,7 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine("[Battle] End");
         }
 
-        private void LinkNeighbors()
+        private void LinkRooms()
         {
             ///connet the 9 rooms 
             ///First row
