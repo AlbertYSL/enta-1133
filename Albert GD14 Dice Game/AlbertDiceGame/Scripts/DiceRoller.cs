@@ -13,7 +13,6 @@ namespace AlbertDiceGame.Scripts
 {
     internal class DiceRoller
     {
-
         private List<string> bag = new List<string>();
 
         public void AddItem(string name)
@@ -21,7 +20,11 @@ namespace AlbertDiceGame.Scripts
             bag.Add(name);
             Console.WriteLine($" you got {name}");
         }
-
+        private readonly Combatant player;
+        public DiceRoller(Combatant owner)
+        {
+            player = owner;
+        }
         public void Print()
         {
             Console.WriteLine("your bag: ");
@@ -35,6 +38,18 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine($"[{i}] {bag[i]}");
             }
             Console.WriteLine($" Item number: {bag.Count}");
+        }
+        private int GetDiceDamage(string diceName)
+        {
+            switch (diceName)
+            {
+                case "Dice20": return 35;///set Dice20 got 35 damage
+                case "Dice12": return 25;///set Dice12 got 25 damage
+                case "Dice8": return 20;///set Dice8 got 20 damage
+                case "Dice6": return 15;/// set Dice6 got 6 damage
+                case "Dice4": return 5;///set Dice4 got 5 damage
+                default: return 10;/// set the default damage = 10
+            }
         }
 
         public void PlayerOne()
@@ -195,13 +210,34 @@ namespace AlbertDiceGame.Scripts
                 {
                     Console.WriteLine();
                     Console.WriteLine(" >>>> " + "You lose at CPU this round ~~ +_+" + " <<<< ");
+                    Console.WriteLine();
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" >> You had taken {damage} damage!! TAT ");
+                    player.TakeDamage(damage);
+
                     computerscore += 1;
+
+                    if (player.hp <= 0)
+                    {
+                        Console.WriteLine("\n ==================== GAME OVER GG =====================");
+                        Console.WriteLine("\n ====================== YOU DIED ========================");
+                        break;
+                    }
                 }
                 else if (computerresult < playerresult)
                 {
                     Console.WriteLine();
                     Console.WriteLine(" >>>> " + "You WIN this round!!" + " <<<< ");
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" > Monster takes {damage} damage ");
+                    bool dead = player.HurtMonster(damage);
                     playerscore += 1;
+
+                    if (dead)
+                    {
+                        Console.WriteLine(" >> The Monster ran away ");
+                        break;
+                    }
                 }
                 else if (computerresult == playerresult)
                 {
@@ -265,7 +301,22 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
             }
 
-            System.Threading.Thread.Sleep(1300); ///Stop for 1.3 sec to wait the result.
+            if (player.MonsterHP <= 0)
+            {
+                Console.WriteLine(" > You kill the monster!");
+            }
+            else if (player.hp  <= 0)
+            {
+                Console.WriteLine(" > You were defeated... ");
+                Console.WriteLine(" > You ran away... ");
+            }
+            else
+            {
+                Console.WriteLine(" > The fight ends.");
+                Console.WriteLine(" > You return to the room... ");
+            }
+
+                System.Threading.Thread.Sleep(1300); ///Stop for 1.3 sec to wait the result.
             ///rounds end
             Console.WriteLine();
             Console.WriteLine();
@@ -292,6 +343,30 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(" >> player: " + playerscore);
                 Console.WriteLine(" >> CPU: " + computerscore);
             }
+        }
+
+        public bool HasItem(string name)
+        {
+            return bag.Contains(name);
+        }
+
+        public int CountItem(string name)
+        {
+            int cnt = 0;
+            for (int i = 0; i < bag.Count; i++)
+                if (bag[i] == name) cnt++;
+            return cnt;
+        }
+
+        public bool RemoveOne(string name)
+        {
+            for (int i = 0;i < bag.Count;i++)
+                if (bag[i] == name)
+                {
+                    bag.RemoveAt(i);
+                    return true;
+                }
+            return false;
         }
     }
 }

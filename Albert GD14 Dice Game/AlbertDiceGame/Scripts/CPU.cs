@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,27 @@ namespace AlbertDiceGame.Scripts
 {
     internal class CPU
     {
+        private readonly DiceRoller dice;
+        private readonly Combatant player;
+
+        public CPU(Combatant owner)
+        {
+            dice = new DiceRoller(owner);
+            player = owner;
+        }
+        private int GetDiceDamage(string diceName)
+        {
+            switch (diceName)
+            {
+                case "Dice20": return 35;///set Dice20 got 35 damage
+                case "Dice12": return 25;///set Dice12 got 25 damage
+                case "Dice8": return 20;///set Dice8 got 20 damage
+                case "Dice6": return 15;/// set Dice6 got 6 damage
+                case "Dice4": return 5;///set Dice4 got 5 damage
+                default: return 10;/// set the default damage = 10
+            }
+        }
+
         public void ComputerOne()
         {
             Random rand = new Random();
@@ -160,13 +182,34 @@ namespace AlbertDiceGame.Scripts
                 {
                     Console.WriteLine();
                     Console.WriteLine(" >>>> " + "You lose at CPU this round ~~ +_+" + " <<<< ");
+                    Console.WriteLine();
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" >> You had taken {damage} damage!! TAT ");
+                    player.TakeDamage(damage);
+
                     computerscore += 1;
+
+                    if (player.hp <= 0)
+                    {
+                        Console.WriteLine("\n ==================== GAME OVER GG =====================");
+                        Console.WriteLine("\n ====================== YOU DIED ========================");
+                        break;
+                    }
                 }
                 else if (computerresult < playerresult)
                 {
                     Console.WriteLine();
                     Console.WriteLine(" >>>> " + "You WIN this round!!" + " <<<< ");
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" > Monster takes {damage} damage ");
+                    bool dead = player.HurtMonster(damage);
                     playerscore += 1;
+
+                    if (dead)
+                    {
+                        Console.WriteLine(" >> The Monster ran away ");
+                        break;
+                    }
                 }
                 else if (computerresult == playerresult)
                 {

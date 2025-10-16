@@ -75,8 +75,8 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine("Let's see who goes first $_$");
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
-                DiceRoller dr = new DiceRoller();
-                CPU cpu = new CPU();
+                //DiceRoller dr = new DiceRoller();
+                //CPU cpu = new CPU();
 
 
                 if (turn == 0)
@@ -84,7 +84,7 @@ namespace AlbertDiceGame.Scripts
                     Console.WriteLine();
                     Console.WriteLine($"{playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
                     Console.WriteLine("The dice will be randomly given to you every round.");
-                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
+                    //dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
                     Console.WriteLine();
                 }
                 else
@@ -92,7 +92,7 @@ namespace AlbertDiceGame.Scripts
                     Console.WriteLine();
                     Console.WriteLine("Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
                     Console.WriteLine("The dice will be randomly given to you every round.");
-                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
+                    //cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
                     Console.WriteLine();
                 }
 

@@ -36,29 +36,51 @@ namespace AlbertDiceGame.Scripts
 
     internal class TreasureRoom : Room /// the code for Treasure Room
     {
-        private bool taken = false; 
- 
+        private bool taken = false;
+
         private static Random rd = new Random();
+
+        private string FindJunk()
+        {
+            string[] junks = { "Broken Old Coin", "Broken Arrow", "Rope", "Dust", "Bone" };
+            return junks[rd.Next(junks.Length)];/// so it will be randomly given to the player when they search the door.
+        }
 
         public override void OnRoomSearched(Combatant player)
         {
-            if (!taken)///if ! = not taken it'll randonly shows the item you got.
+            if (taken)
             {
-                string[] items = { "d4, d6, d8, d12, d20", "Potion", "Long Sword", "Arrow and Bow", "Short Sword" };
-                string found = items[rd.Next(items.Length)];
-
-                Console.WriteLine($"you found {found}! ");
-                player.AddToBag(found);
-
-                taken = true;
+                Console.WriteLine("> the box is empty ");
+                return;
             }
-            else/// if already taken it'll shows that the box is empty
+
+            /// make the potion not that offen can be find.
+            bool givePotion = rd.Next(100) < 30;
+
+            if (givePotion)
             {
-                Console.WriteLine(" The box is empty ");
+                if (player.Dice.CountItem("Potion") >= 5) /// set the player can not take more than 5 bottlo of potion
+                {
+                    string junk = FindJunk();
+                    Console.WriteLine($" >> Ha Ha you found: {junk}");
+                    player.AddToBag(junk);
+                }
+                else
+                {
+                    Console.WriteLine(" >> You found Potion !");
+                    player.AddToBag("Potion");
+                }
             }
+            else
+            {
+                string junk = FindJunk();
+                Console.WriteLine($" >> you found:{junk} ");
+                player.AddToBag(junk);
+            }
+
+            taken = true; /// one more once
         }
     }
-
     internal class MonsterRoom : Room
     {
         private bool firstTime = true;/// when first time the player enter the monster room than the 

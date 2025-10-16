@@ -11,11 +11,27 @@ namespace AlbertDiceGame.Scripts
 {
     internal class Combatant
     {
+
         public int hp = 100; /// player hp start from 100
         private readonly DiceRoller dice; /// player bag 
+        public DiceRoller Dice => dice;
         private readonly Random rd; 
         private string playerName; ///player name
+        public static Combatant player;/// set it at static so it would be only one and not change 
+        public int MonsterHP = 100;
 
+        public void ResetMonster()
+        {
+            MonsterHP = 100;
+        }
+
+        public bool HurtMonster(int dmg)
+        {
+            MonsterHP -= dmg;
+            Console.WriteLine($" >> Monster - {dmg} HP ");
+            Console.WriteLine($" >> remain : {MonsterHP}");
+            return MonsterHP <= 0;/// return to see if the monsters' hp get to 0 over not 
+        }
         private readonly int rows = 3; /// 3 X 3 rooms map
         private readonly int cols = 3;
         private List<Room> rooms; /// make a list to every rooms I got
@@ -26,7 +42,7 @@ namespace AlbertDiceGame.Scripts
         {
             rd = new Random();
             rooms = new List<Room>();
-            dice = new DiceRoller();
+            dice = new DiceRoller(this);
             Console.WriteLine();
 
             Console.WriteLine();
@@ -36,9 +52,97 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine();
         }
 
+        private const int MaxHP = 100; /// set the MaxHP at 100. 
+
+        public void Heal(int amount)
+        {
+            if (hp >= 100)
+            {
+                Console.WriteLine(" >> Your HP is already Full ");
+                return;
+            }
+            int old =hp;
+            hp += amount;
+            if (hp > 100) hp = 100;
+            Console.WriteLine();
+            Console.WriteLine($" >> {playerName} had healed {hp - old} HP  ");
+            Console.WriteLine($" >> HP : {hp}/100 ");
+        }
         public void TakeDamage(int damage)
         {
             hp -= damage;
+            if (hp < 0) hp = 0;
+            Console.WriteLine($" >> {playerName} took {damage} damage !! TAT");
+            Console.WriteLine($" >> HP : {hp}/100 ");
+            
+            if (hp <= 0) GameOver();
+        }
+
+        private void GameOver()
+        {
+            if (hp > 0) return;
+            Console.WriteLine("\n ==================== GAME OVER GG =====================");
+            Console.WriteLine("\n ====================== YOU DIED ========================");
+            Console.WriteLine();
+            Console.WriteLine(" Would you like to try again ?");
+            Console.WriteLine(">> Yes = 1 ");
+            Console.WriteLine(">> Give up = 2 ");
+            
+            string yes = Console.ReadLine();
+            if (yes == "1")
+            {
+                hp = 100;
+                ResetMonster();
+                rooms.Clear();
+                BuildRandomRooms();
+                LinkNeighbors();
+                SetStartAtCenter();
+                Console.WriteLine(" >>> RESTART <<<");
+            }
+            else
+            {
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                Environment.Exit(0);
+                Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
+                Console.WriteLine(@" 
+                                 ______   _______   ______   _______        ____    _____     ____  
+                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
+                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
+                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
+                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
+                                                                           \____/            \____/  ");
+
+            }
+        }
+
+        private void UsePotion()
+        {
+            dice.Print(); //The place for the bag code
+            if (!dice.HasItem("Potion")) /// if the player bag do not had the Item name Potion.
+            {
+                Console.WriteLine("( No Potion in your bag )");
+                return;
+            }
+            if (hp >= MaxHP) /// if the player hp is at > or = to 100
+            {
+                Console.WriteLine(" >>> Your HP is Full can't use the potion. ");/// print
+                return;
+            }
+
+            Console.WriteLine(" Do you wnat to use Potion for +30 hp ?");
+            Console.WriteLine(">> Yes = 1 ");
+            Console.WriteLine(">> No = 2 ");
+
+            string yep = Console.ReadLine();
+            if ( yep == "1") /// if player enter 1 
+            {
+                if (dice.RemoveOne("Potion")) Heal(30); /// open the removeOne code and remove one potion 
+                else Console.WriteLine( "> There is no Potion in your bag ");
+            }
+            else
+            {
+                Console.WriteLine();
+            }
         }
 
         public void AddToBag(string items)
@@ -54,7 +158,7 @@ namespace AlbertDiceGame.Scripts
         public void GameStart()
         {
             Console.WriteLine($"\n Welcome {playerName} the Maze Explorer!");
-            
+
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
                 Console.WriteLine(" Are you ready for the Adventure? ");
@@ -100,7 +204,7 @@ namespace AlbertDiceGame.Scripts
                 var choice = Console.ReadLine();
                 if (choice == "1") { current.OnRoomEntered(this); ShowMap(); InsideRoom(); }/// when type 1 the current room itself(this) will be open and also showmap and what's inside tha room will be open too by insideroom()
                 else if (choice == "2") { AskMove(); }/// type 2 will beable to open the AskMove code 
-                else if (choice == "3") { dice.Print(); }/// cause the bag code is in the diceroller part (player class) so use dice.Print to link and open it.
+                else if (choice == "3") { UsePotion(); } /// when the player check their bag if thre's potion inside the bag then it'll ask if the player want to use it or not 
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
             }
@@ -131,7 +235,7 @@ namespace AlbertDiceGame.Scripts
                 var choice = Console.ReadLine();
 
                 if (choice == "1") current.OnRoomSearched(this);
-                else if (choice == "2") dice.Print();
+                else if (choice == "2") UsePotion();
                 else if (choice == "3") Console.WriteLine($"{playerName} got: {hp}");
                 else if (choice == "4") { AskMove(); inside = false; }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
@@ -197,6 +301,7 @@ namespace AlbertDiceGame.Scripts
 
         public void StartMonsterLoop() ///call out the battle
         {
+            DiceRoller dr = new DiceRoller(this);
             //GameManager diceGame = new GameManager();
             //diceGame.PlayGame();
             Console.WriteLine("[Battle] Strat ");
@@ -211,8 +316,9 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
                 System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
                 int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
-                DiceRoller dr = new DiceRoller();
-                CPU cpu = new CPU();
+                //DiceRoller dr = new DiceRoller();
+                CPU cpu = new CPU(this);
+                cpu.ComputerOne();
 
                 string userInput = Console.ReadLine();
 
