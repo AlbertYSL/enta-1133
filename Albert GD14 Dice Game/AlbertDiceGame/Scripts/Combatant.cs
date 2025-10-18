@@ -155,7 +155,6 @@ namespace AlbertDiceGame.Scripts
         public void GameStart()
         {
             Console.WriteLine("====== Dice of Fate ======");
-            Console.WriteLine() ;
 
             ///basic call for the rooms and start center 
             BuildRandomRooms();
@@ -420,9 +419,9 @@ namespace AlbertDiceGame.Scripts
         public void EndTheGame()
         {
             Console.WriteLine($" >>> {playerName} are you sure you want to left the Dungeon of Fath ? ");
-            Console.WriteLine(" >> 1 = End the Game TAT");
-            Console.WriteLine(" >> 2 = Reset the Game ");
-            Console.WriteLine(" >> enter anything for Return to choose room ");
+            Console.WriteLine(" > 1 = End the Game TAT");
+            Console.WriteLine(" > 2 = Reset the Game ");
+            Console.WriteLine(" > enter anything for Return to choose room ");
 
             string yes = Console.ReadLine();
             if (yes == "1")
@@ -441,10 +440,13 @@ namespace AlbertDiceGame.Scripts
             }
             else if (yes == "2")
             {
-                GameStart();
+                Console.WriteLine();
                 Console.WriteLine(" >>> RESTART <<<");
+                Console.WriteLine();
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                Introduction();
             }
-            else { AskMove(); }
+            else { InsideRoom(); }
         }
     }
 }
