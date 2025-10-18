@@ -28,6 +28,7 @@ namespace AlbertDiceGame.Scripts
                                 |_|  \__,_|\__\___| |____/|_|\___\___|  \____|\__,_|_| |_| |_|\___|");
 
             Combatant cmbt = new Combatant();
+            cmbt.Introduction();
             cmbt.GameStart();
         }
     }

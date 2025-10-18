@@ -20,18 +20,17 @@ namespace AlbertDiceGame.Scripts
         private string playerName; ///player name
         public static Combatant player;/// set it at static so it would be only one and not change 
         public int MonsterHP = 100;
-
-        public void ResetMonster()
-        {
-            MonsterHP = 100;
-        }
-
         public bool HurtMonster(int dmg)
         {
             MonsterHP -= dmg;
             Console.WriteLine($" >> Monster - {dmg} HP ");
             Console.WriteLine($" >> remain : {MonsterHP}");
             return MonsterHP <= 0;/// return to see if the monsters' hp get to 0 over not 
+        }
+
+        public void ResetMonster()
+        {
+            MonsterHP = 100;
         }
 
         private readonly int rows = 3; /// 3 X 3 rooms map
@@ -54,6 +53,20 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine();
         }
 
+        public string GetName()
+        {
+            return playerName; ///Let the code know the playername so it can be used
+        }
+
+        public void TakeDamage(int damage)
+        {
+            hp -= damage;
+            if (hp < 0) hp = 0;
+            Console.WriteLine($" >> {playerName} took {damage} damage !! TAT");
+            Console.WriteLine($" >> HP : {hp}/100 ");
+            
+            if (hp <= 0) GameOver();
+        }
         public void Heal(int amount)
         {
             if (hp >= 100)
@@ -69,19 +82,9 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($" >> HP : {hp}/100 ");
         }
 
-        public string GetName()
+        public void AddToBag(string items)
         {
-            return playerName; ///Let the code know the playername so it can be used
-        }
-
-        public void TakeDamage(int damage)
-        {
-            hp -= damage;
-            if (hp < 0) hp = 0;
-            Console.WriteLine($" >> {playerName} took {damage} damage !! TAT");
-            Console.WriteLine($" >> HP : {hp}/100 ");
-            
-            if (hp <= 0) GameOver();
+            dice.AddItem(items);/// makesure that bag is in Inventory
         }
 
         private void UsePotion()
@@ -114,20 +117,15 @@ namespace AlbertDiceGame.Scripts
             }
         }
 
-        public void AddToBag(string items)
+        public void Introduction()
         {
-            dice.AddItem(items);/// makesure that bag is in Inventory
-        }
-
-        public void GameStart()
-        {
-            Console.WriteLine($"\n Welcome {playerName} the Maze Explorer!");
+            Console.WriteLine($"\n Welcome {playerName}!!  The Maze Explorer!");
 
             while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
             {
                 Console.WriteLine(" Are you ready for the Adventure? ");
                 Console.WriteLine(" > 1 = Yes ");
-                Console.WriteLine(" > 2 = No ") ;
+                Console.WriteLine(" > 2 = No ");
 
                 string userInput = Console.ReadLine();
                 Console.WriteLine();
@@ -152,7 +150,10 @@ namespace AlbertDiceGame.Scripts
                 }
                 else { Console.WriteLine($"* {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); Console.WriteLine(); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
             }
+        }
 
+        public void GameStart()
+        {
             Console.WriteLine("====== Dice of Fate ======");
             Console.WriteLine() ;
 
@@ -164,7 +165,7 @@ namespace AlbertDiceGame.Scripts
             while (true)
             {
                 Console.WriteLine();
-                Console.WriteLine($"\n > now {playerName} there is a door infront to you, what do you want to do next?");
+                Console.WriteLine($"\n > now {playerName} there is a door infront of you, what would you want to do next?");
                 Console.WriteLine(" > 1 = enter the room ");
                 ///Let the player chose what they want to do next by type down 1, 2, 3, 4.
                 Console.WriteLine(" > 2 = dont enter the room ");
@@ -217,9 +218,10 @@ namespace AlbertDiceGame.Scripts
 
         private void AskMove()/// if the player choiced 4 than this code will run by asking what is their next move 
         {
-            Console.WriteLine($"{playerName} where do you wnat to expore?");
+            Console.WriteLine();
+            Console.WriteLine($" -- {playerName} where do you wnat to expore?");
             ShowMap();
-            Console.WriteLine(" W = North, A = West, S = South, D = East"); /// the way the player want to go to by typing w, a, s, d
+            Console.WriteLine("W = North, A = West, S = South, D = East"); /// the way the player want to go to by typing w, a, s, d
             string mov = Console.ReadLine();
 
             if (mov == "w") Move(current.North, -1, 0); /// set w == to going North (up) and -1, 0 = one step up
