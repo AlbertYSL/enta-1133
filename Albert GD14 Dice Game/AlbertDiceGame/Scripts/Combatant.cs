@@ -13,8 +13,9 @@ namespace AlbertDiceGame.Scripts
     {
 
         public int hp = 100; /// player hp start from 100
-        private readonly DiceRoller dice; /// player bag 
-        public DiceRoller Dice => dice;
+        private const int MaxHP = 100; /// set the MaxHP at 100. 
+        private readonly Player dice; /// connent to the player bag in Player.cs 
+        public Player Dice => dice;
         private readonly Random rd; 
         private string playerName; ///player name
         public static Combatant player;/// set it at static so it would be only one and not change 
@@ -32,6 +33,7 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($" >> remain : {MonsterHP}");
             return MonsterHP <= 0;/// return to see if the monsters' hp get to 0 over not 
         }
+
         private readonly int rows = 3; /// 3 X 3 rooms map
         private readonly int cols = 3;
         private List<Room> rooms; /// make a list to every rooms I got
@@ -42,7 +44,7 @@ namespace AlbertDiceGame.Scripts
         {
             rd = new Random();
             rooms = new List<Room>();
-            dice = new DiceRoller(this);
+            dice = new Player(this);
             Console.WriteLine();
 
             Console.WriteLine();
@@ -52,8 +54,6 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine();
         }
 
-        private const int MaxHP = 100; /// set the MaxHP at 100. 
-
         public void Heal(int amount)
         {
             if (hp >= 100)
@@ -61,13 +61,19 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine(" >> Your HP is already Full ");
                 return;
             }
-            int old =hp;
+            int old = hp;
             hp += amount;
             if (hp > 100) hp = 100;
             Console.WriteLine();
             Console.WriteLine($" >> {playerName} had healed {hp - old} HP  ");
             Console.WriteLine($" >> HP : {hp}/100 ");
         }
+
+        public string GetName()
+        {
+            return playerName; ///Let the code know the playername so it can be used
+        }
+
         public void TakeDamage(int damage)
         {
             hp -= damage;
@@ -76,43 +82,6 @@ namespace AlbertDiceGame.Scripts
             Console.WriteLine($" >> HP : {hp}/100 ");
             
             if (hp <= 0) GameOver();
-        }
-
-        private void GameOver()
-        {
-            if (hp > 0) return;
-            Console.WriteLine("\n ==================== GAME OVER GG =====================");
-            Console.WriteLine("\n ====================== YOU DIED ========================");
-            Console.WriteLine();
-            Console.WriteLine(" Would you like to try again ?");
-            Console.WriteLine(">> Yes = 1 ");
-            Console.WriteLine(">> Give up = 2 ");
-            
-            string yes = Console.ReadLine();
-            if (yes == "1")
-            {
-                hp = 100;
-                ResetMonster();
-                rooms.Clear();
-                BuildRandomRooms();
-                LinkNeighbors();
-                SetStartAtCenter();
-                Console.WriteLine(" >>> RESTART <<<");
-            }
-            else
-            {
-                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
-                Environment.Exit(0);
-                Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
-                Console.WriteLine(@" 
-                                 ______   _______   ______   _______        ____    _____     ____  
-                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
-                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
-                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
-                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
-                                                                           \____/            \____/  ");
-
-            }
         }
 
         private void UsePotion()
@@ -150,11 +119,6 @@ namespace AlbertDiceGame.Scripts
             dice.AddItem(items);/// makesure that bag is in Inventory
         }
 
-        public string GetName()
-        {
-            return playerName; ///Let the code know the playername so it can be used
-        }
-
         public void GameStart()
         {
             Console.WriteLine($"\n Welcome {playerName} the Maze Explorer!");
@@ -177,12 +141,19 @@ namespace AlbertDiceGame.Scripts
                 else if (userInput == "2")
                 {
                     Console.WriteLine("Ok, see you.");
+                    Console.WriteLine(@" 
+                                 ______   _______   ______   _______        ____    _____     ____  
+                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
+                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
+                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
+                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
+                                                                           \____/            \____/  ");
                     return;
                 }
-                else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
+                else { Console.WriteLine($"* {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); Console.WriteLine(); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
             }
 
-            Console.WriteLine("====== Dice of Fath ======");
+            Console.WriteLine("====== Dice of Fate ======");
             Console.WriteLine() ;
 
             ///basic call for the rooms and start center 
@@ -198,7 +169,8 @@ namespace AlbertDiceGame.Scripts
                 ///Let the player chose what they want to do next by type down 1, 2, 3, 4.
                 Console.WriteLine(" > 2 = dont enter the room ");
                 Console.WriteLine(" > 3 = check your bag ");
-                Console.WriteLine(" 4 = check your hp ");
+                Console.WriteLine(" > 4 = check your hp ");
+                Console.WriteLine(" > 5 = End The Game ");
                 Console.WriteLine();
 
                 var choice = Console.ReadLine();
@@ -206,10 +178,10 @@ namespace AlbertDiceGame.Scripts
                 else if (choice == "2") { AskMove(); }/// type 2 will beable to open the AskMove code 
                 else if (choice == "3") { UsePotion(); } /// when the player check their bag if thre's potion inside the bag then it'll ask if the player want to use it or not 
                 else if (choice == "4") { Console.WriteLine($" > {playerName} got: {hp}"); }
+                else if (choice == "5") { EndTheGame(); }
                 else Console.WriteLine($" {playerName} please enter 1, 2, 3 or 4");
             }
         }
-
 
         private void SetStartAtCenter()
         {
@@ -226,7 +198,7 @@ namespace AlbertDiceGame.Scripts
             while (inside)
             {
                 Console.WriteLine($"\n {playerName} had enter the room, what are you going to do next?");
-                Console.WriteLine(" >> 1 = search the door ");
+                Console.WriteLine(" >> 1 = search the room ");
                 Console.WriteLine(" >> 2 = check your bag ");
                 Console.WriteLine(" >> 3 = check your hp ");
                 Console.WriteLine(" >> 4 = go to another room ");
@@ -246,7 +218,8 @@ namespace AlbertDiceGame.Scripts
         private void AskMove()/// if the player choiced 4 than this code will run by asking what is their next move 
         {
             Console.WriteLine($"{playerName} where do you wnat to expore?");
-            Console.WriteLine(" W = North, A = South, S = West, D = East"); /// the way the player want to go to by typing w, a, s, d
+            ShowMap();
+            Console.WriteLine(" W = North, A = West, S = South, D = East"); /// the way the player want to go to by typing w, a, s, d
             string mov = Console.ReadLine();
 
             if (mov == "w") Move(current.North, -1, 0); /// set w == to going North (up) and -1, 0 = one step up
@@ -264,92 +237,12 @@ namespace AlbertDiceGame.Scripts
         ///use int dR to the amount of change in row how many columns to move up/down.
         ///use int dC to the amount of change in col (how many rows to move left/right)
         {
-            if (next == null) { Console.WriteLine($" {playerName} what's a wall brother, you can't go there."); return; }
+            if (next == null) { Console.WriteLine($" {playerName} that's a wall brother, you can't go there."); return; }
             current.OnRoomExit(this);
             curRw += dR;
             curCl += dC;
             current = next;
-            Console.WriteLine($" {playerName} move to ({curRw}, {curCl})");
-        }
-
-        private void BuildRandomRooms()
-        {
-            rooms.Clear(); /// clear the rooms
-
-            for (int r = 0; r < 3; r++)
-            {
-                for (int c = 0; c < 3; c++)
-                {
-                    rooms.Add(new TreasureRoom { Row = r , Col = c });
-                }
-            }
-
-            rooms[4] = new BasicRoom { Row = 1 , Col = 1 }; /// set the middle spown room, so it will not invote into the random.
-
-            Random rdm = new Random();
-            int monster = 0;
-            while (monster < 3)///only 3 random room will be change into monster room.
-            {
-                int pos = rdm.Next(0, 9);
-                if (pos == 4 ) continue; /// if the pos (position) is 4 than cant be the middle room
-                if (rooms[pos] is MonsterRoom) continue; /// if the room already is a monster room than it'll jump over to next room for choosing the random room
-                
-                rooms[pos] = new MonsterRoom {Row = pos / 3, Col = pos % 3}; /// use postition / by 3 to see which row should it be. use position % 3 to see which column.
-                monster++;/// to see if there already a monster than jump to next random chose and add one until 3 monster room shows.
-            }
-        }
-
-        public void StartMonsterLoop() ///call out the battle
-        {
-            DiceRoller dr = new DiceRoller(this);
-            //GameManager diceGame = new GameManager();
-            //diceGame.PlayGame();
-            Console.WriteLine("[Battle] Strat ");
-            bool onemoreTime = true;
-            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
-            {
-                Console.WriteLine();
-                Random rm = new Random(); /// making the random = rm
-                Console.WriteLine(">>Let's see who goes first $_$");
-                Console.WriteLine(" > please type enter to start the FATH ");
-                Console.WriteLine();
-                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
-                //DiceRoller dr = new DiceRoller();
-                CPU cpu = new CPU(this);
-                cpu.ComputerOne();
-
-                string userInput = Console.ReadLine();
-
-                if (turn == 0)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($" * {playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
-                    Console.WriteLine();
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine(" * Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
-                    Console.WriteLine();
-                }
-
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else to countinue your adventure <<<<");
-                userInput = Console.ReadLine();
-                onemoreTime = (userInput == "1");
-                Console.WriteLine();
-                if (onemoreTime)
-                {
-                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
-                }
-            }
-            Console.WriteLine("[Battle] End");
+            Console.WriteLine($" {playerName} move ({curRw}, {curCl})");
         }
 
         private void LinkNeighbors()
@@ -391,6 +284,32 @@ namespace AlbertDiceGame.Scripts
             rooms[8].North = rooms[5];
             rooms[8].West = rooms[7];
         }
+        private void BuildRandomRooms()
+        {
+            rooms.Clear(); /// clear the rooms
+
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    rooms.Add(new TreasureRoom { Row = r , Col = c });
+                }
+            }
+
+            rooms[4] = new BasicRoom { Row = 1 , Col = 1 }; /// set the middle spown room, so it will not invote into the random.
+
+            Random rdm = new Random();
+            int monster = 0;
+            while (monster < 3)///only 3 random room will be change into monster room.
+            {
+                int pos = rdm.Next(0, 9);
+                if (pos == 4 ) continue; /// if the pos (position) is 4 than cant be the middle room
+                if (rooms[pos] is MonsterRoom) continue; /// if the room already is a monster room than it'll jump over to next room for choosing the random room
+                
+                rooms[pos] = new MonsterRoom {Row = pos / 3, Col = pos % 3}; /// use postition / by 3 to see which row should it be. use position % 3 to see which column.
+                monster++;/// to see if there already a monster than jump to next random chose and add one until 3 monster room shows.
+            }
+        }
 
         public void ShowMap()
         {
@@ -406,6 +325,124 @@ namespace AlbertDiceGame.Scripts
                 Console.WriteLine();
             }
         }
-        
+
+        public void StartMonsterLoop() ///call out the battle
+        {
+            Player dr = new Player(this);
+            //GameManager diceGame = new GameManager();
+            //diceGame.PlayGame();
+            Console.WriteLine("[Battle] Strat ");
+            bool onemoreTime = true;
+            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
+            {
+                Console.WriteLine();
+                Random rm = new Random(); /// making the random = rm
+                Console.WriteLine(">>Let's see who goes first $_$");
+                Console.WriteLine(" > please type enter to start the FATH ");
+                Console.WriteLine();
+                Console.WriteLine(" +++++++++++++++++++++++++++++++++++++++ ");
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
+
+                string userInput = Console.ReadLine();
+
+                if (turn == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" * {playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    dr.PlayerOne(); /// open the PlayerOne in DiceRoller.
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" * Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
+                    Console.WriteLine("The dice will be randomly given to you every round.");
+                    dr.ComputerOne();/// open the ComputerOne in DiceRoller.
+                    Console.WriteLine();
+                }
+
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else to countinue your adventure <<<<");
+                userInput = Console.ReadLine();
+                onemoreTime = (userInput == "1");
+                Console.WriteLine();
+                if (onemoreTime)
+                {
+                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
+                }
+            }
+            Console.WriteLine("[Battle] End");
+        }
+
+        public void GameOver()
+        {
+            if (hp > 0) return;
+            Console.WriteLine();
+            Console.WriteLine("\n ==================== GAME OVER GG =====================");
+            Console.WriteLine("\n ====================== YOU DIED ========================");
+            Console.WriteLine();
+            Console.WriteLine(" Would you like to try again ?");
+            Console.WriteLine(">> Yes = 1 ");
+            Console.WriteLine(">> Give up = 2 ");
+
+            string yes = Console.ReadLine();
+            if (yes == "1")
+            {
+                hp = 100;
+                ResetMonster();
+                rooms.Clear();
+                BuildRandomRooms();
+                LinkNeighbors();
+                SetStartAtCenter();
+                Console.WriteLine(" >>> RESTART <<<");
+            }
+            else
+            {
+                Console.WriteLine();
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
+                Console.WriteLine(@" 
+                                 ______   _______   ______   _______        ____    _____     ____  
+                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
+                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
+                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
+                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
+                                                                           \____/            \____/  ");
+                Environment.Exit(0);
+
+            }
+        }
+
+        public void EndTheGame()
+        {
+            Console.WriteLine($" >>> {playerName} are you sure you want to left the Dungeon of Fath ? ");
+            Console.WriteLine(" >> 1 = End the Game TAT");
+            Console.WriteLine(" >> 2 = Reset the Game ");
+            Console.WriteLine(" >> enter anything for Return to choose room ");
+
+            string yes = Console.ReadLine();
+            if (yes == "1")
+            {
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                Console.WriteLine();
+                Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
+                Console.WriteLine(@" 
+                                 ______   _______   ______   _______        ____    _____     ____  
+                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
+                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
+                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
+                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
+                                                                           \____/            \____/  ");
+                Environment.Exit(0);
+            }
+            else if (yes == "2")
+            {
+                GameStart();
+                Console.WriteLine(" >>> RESTART <<<");
+            }
+            else { AskMove(); }
+        }
     }
 }
