@@ -13,10 +13,10 @@ namespace AlbertDiceGame.Scripts
 {
     internal class Player
     {
-        private readonly Combatant player;
-        public Player(Combatant owner)
+        private readonly Combatant player;//connet with combatant files
+        public Player(Combatant playerName)
         {
-            player = owner;
+            player = playerName;///make sure that the player is the one who is playing 
         }
 
         private List<string> bag = new List<string>();
@@ -30,9 +30,9 @@ namespace AlbertDiceGame.Scripts
         public void Print()
         {
             Console.WriteLine("your bag: ");
-            if (bag.Count == 0)
+            if (bag.Count == 0)//if nothing in the bag 
             {
-                Console.WriteLine("(empty)");
+                Console.WriteLine("(empty)");//shows
                 return;
             }
             for (int i = 0; i < bag.Count; i++)
@@ -57,13 +57,13 @@ namespace AlbertDiceGame.Scripts
 
         public bool RemoveOne(string name)
         {
-            for (int i = 0; i < bag.Count; i++)
-                if (bag[i] == name)
+            for (int i = 0; i < bag.Count; i++)//check the item one by one
+                if (bag[i] == name)//see if the item is the one need to be remove
                 {
                     bag.RemoveAt(i);
-                    return true;
+                    return true;//find it (remove) = ture 
                 }
-            return false;
+            return false;// if not = false
         }
 
         private int GetDiceDamage(string diceName)

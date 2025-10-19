@@ -15,22 +15,23 @@ namespace AlbertDiceGame.Scripts
         public int hp = 100; /// player hp start from 100
         private const int MaxHP = 100; /// set the MaxHP at 100. 
         private readonly Player dice; /// connent to the player bag in Player.cs 
-        public Player Dice => dice;
+        public Player Dice => dice;//can be read in other place but cant change
         private readonly Random rd; 
         private string playerName; ///player name
         public static Combatant player;/// set it at static so it would be only one and not change 
+
         public int MonsterHP = 100;
         public bool HurtMonster(int dmg)
         {
             MonsterHP -= dmg;
             Console.WriteLine($" >> Monster - {dmg} HP ");
             Console.WriteLine($" >> remain : {MonsterHP}");
-            return MonsterHP <= 0;/// return to see if the monsters' hp get to 0 over not 
+            return MonsterHP <= 0;/// return to see if the monsters' hp get to 0 or not 
         }
 
         public void ResetMonster()
         {
-            MonsterHP = 100;
+            MonsterHP = 100;//set the monster hp same with the player 
         }
 
         private readonly int rows = 3; /// 3 X 3 rooms map
@@ -69,14 +70,14 @@ namespace AlbertDiceGame.Scripts
         }
         public void Heal(int amount)
         {
-            if (hp >= 100)
+            if (hp >= 100)//if player current hp is 100 
             {
-                Console.WriteLine(" >> Your HP is already Full ");
+                Console.WriteLine(" >> Your HP is already Full ");//shows
                 return;
             }
-            int old = hp;
-            hp += amount;
-            if (hp > 100) hp = 100;
+            int old = hp;//player hp before heal
+            hp += amount;//amount = 30, + the "amount" to the hp (old )
+            if (hp > 100) hp = 100;// make sure the hp wouldnt over heal 
             Console.WriteLine();
             Console.WriteLine($" >> {playerName} had healed {hp - old} HP  ");
             Console.WriteLine($" >> HP : {hp}/100 ");
@@ -133,7 +134,9 @@ namespace AlbertDiceGame.Scripts
                 if (userInput == "1")
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Start the advanture!!");
+                    Console.WriteLine(" >>>> The advanture begin !! <<<< ");
+                    Console.WriteLine();
+                    
                     break; /// Break the loop, so can go on to the next event.
                 }
                 else if (userInput == "2")
@@ -146,6 +149,7 @@ namespace AlbertDiceGame.Scripts
                                 | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
                                 |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
                                                                            \____/            \____/  ");
+                    Environment.Exit(0);
                     return;
                 }
                 else { Console.WriteLine($"* {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); Console.WriteLine(); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
@@ -155,6 +159,7 @@ namespace AlbertDiceGame.Scripts
         public void GameStart()
         {
             Console.WriteLine("====== Dice of Fate ======");
+            Console.WriteLine();
 
             ///basic call for the rooms and start center 
             BuildRandomRooms();
