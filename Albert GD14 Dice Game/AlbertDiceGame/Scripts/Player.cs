@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Numerics;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -10,113 +13,633 @@ namespace AlbertDiceGame.Scripts
 {
     internal class Player
     {
-        public void Introduction()
+        private readonly Combatant player;//connet with combatant files
+        public Player(Combatant playerName)
         {
-            ///Asking what's the player name, read the playername by userInput.
-            string askenameMessge = "What is your name";
-            Console.WriteLine(askenameMessge);
-            Console.WriteLine("******************************************************************");
-            string playerName = Console.ReadLine();
-            Console.WriteLine("******************************************************************");
-            Console.WriteLine();
-
-            Console.WriteLine(" > Starting the Rules of the Game.");
-            string pressenterMessage = " > Please press Enter to continue.";
-            Console.WriteLine(pressenterMessage);
-            //Contiue to next event by pressing Space.
-            Console.WriteLine();
-            Console.WriteLine("(＾.＾) (*^3^*) (>_<) (//3//) (* ω *) (= ω = ) (T....T) ( @.@ )");
-            string userInput = Console.ReadLine();
-            userInput = "Enter";
-
-            Console.WriteLine(" > Both players get five different dice (d4, d6, d8, d12, d20)");
-            Console.WriteLine(" > Then, randomly choose a number.");
-            Console.WriteLine(" > After players have chosen a number, the die will roll.");
-            Console.WriteLine(" > See who got the highest roll.");
-            Console.WriteLine(" > Highest score wins the round.");
-            Console.WriteLine(" > The dice you have already rolled will be gone for the rest of the game. ");
-            Console.WriteLine(" > After the round, you need to choose a different die.");
-            Console.WriteLine(" > Continue until both of the players' dice have all been used.");
-            Console.WriteLine(" > The player who wins the most rounds wins the GAME.");
-            Console.WriteLine();
-            Console.WriteLine("( @.@ ) (T....T) (= ω = ) (* ω *) (//3//) (>_<) (*^3^*) (＾.＾)");
-
-            Console.WriteLine();
-            Console.WriteLine($"Now,{playerName} Would you like to play?? ");/// Read the PlayerName
-            Console.WriteLine("Yes = 1, No = 2");
-
-            while (true)  ///This code is for letting the player cant type anything else, only 1 or 2.
-            {
-                string playerreplayMessage = "1 or 2";
-                userInput = Console.ReadLine(); /// that the player type 1 or 2 for Yes or No
-                Console.WriteLine();
-                if (userInput == "1")
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Let's go !!");
-                    break; /// Break the loop, so can go on to the next event.
-                }
-                else if (userInput == "2")
-                {
-                    Console.WriteLine("Too late ~ ~ Still need to play ^ . ^ ");
-                    break;
-                    Console.WriteLine();
-                }
-                else { Console.WriteLine($" {playerName} Only Yes or No ~ isn't that hard to read +_+ ..."); } /// if player type something else they will see this message can retype (because only 1 or 2 can break the loop).
-                Console.WriteLine(playerreplayMessage);
-            }
-        
-                Console.WriteLine();
-                bool onemoreTime = true;
-            while (onemoreTime) /// use the loop by while, so when the player end the game will ask them if they want to play again or not.
-            {
-                Console.WriteLine();
-                Random rm = new Random(); /// making the random = rm
-                Console.WriteLine("Let's see who goes first $_$");
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                int turn = rm.Next(0, 2);/// so it'll only give 0 or 1.
-                DiceRoller dr = new DiceRoller();
-                CPU cpu = new CPU();
-
-
-                if (turn == 0)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($"{playerName} starts first"); /// if 0 than it's player start first = by link to the playername that player type at the Console.ReadLine
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    dr.PlayerOne(); /// open the PlayerOne (player code) in DiceRoller.
-                    Console.WriteLine();
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Starting from cpu one ...."); /// if 1 shows up than it'll be the CPU to start first.
-                    Console.WriteLine("The dice will be randomly given to you every round.");
-                    cpu.ComputerOne();/// open the ComputerOne (CPU code) in DiceRoller.
-                    Console.WriteLine();
-                }
-
-                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
-                Console.WriteLine("\n>>>> Wanna try again ? 1 = yes or type anythings else = no <<<<");
-                userInput = Console.ReadLine();
-                onemoreTime = (userInput == "1");
-                Console.WriteLine();
-                if (onemoreTime)
-                {
-                    Console.Clear(); ///clear all the rounds and restart from choose who go first.
-                }
-            }
-            System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
-            Console.WriteLine($"{playerName} thank you for playing, see you ^_^!!");
-            Console.WriteLine(@" 
-                                 ______   _______   ______   _______        ____    _____     ____  
-                                | __ ) \ / / ____| | __ ) \ / / ____|      / __ \  |___ /    / __ \ 
-                                |  _ \\ V /|  _|   |  _ \\ V /|  _|       / / _` |   |_ \   / / _` |
-                                | |_) || | | |___  | |_) || | | |___     | | (_| |  ___) | | | (_| |
-                                |____/ |_| |_____| |____/ |_| |_____|     \ \__,_| |____/   \ \__,_|
-                                                                           \____/            \____/  ");
+            player = playerName;///make sure that the player is the one who is playing 
         }
 
-    }
+        private List<string> bag = new List<string>();
 
+        public void AddItem(string name)
+        {
+            bag.Add(name);
+            Console.WriteLine($" you got {name}");
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("your bag: ");
+            if (bag.Count == 0)//if nothing in the bag 
+            {
+                Console.WriteLine("(empty)");//shows
+                return;
+            }
+            for (int i = 0; i < bag.Count; i++)
+            {
+                Console.WriteLine($"[{i}] {bag[i]}");
+            }
+            Console.WriteLine($" Item number: {bag.Count}");
+        }
+
+        public bool HasItem(string name)
+        {
+            return bag.Contains(name);
+        }
+
+        public int CountItem(string name)
+        {
+            int cnt = 0;
+            for (int i = 0; i < bag.Count; i++)
+                if (bag[i] == name) cnt++;
+            return cnt;
+        }
+
+        public bool RemoveOne(string name)
+        {
+            for (int i = 0; i < bag.Count; i++)//check the item one by one
+                if (bag[i] == name)//see if the item is the one need to be remove
+                {
+                    bag.RemoveAt(i);
+                    return true;//find it (remove) = ture 
+                }
+            return false;// if not = false
+        }
+
+        private int GetDiceDamage(string diceName)
+        {
+            switch (diceName)
+            {
+                case "Dice20": return 35;///set Dice20 got 35 damage
+                case "Dice12": return 25;///set Dice12 got 25 damage
+                case "Dice8": return 20;///set Dice8 got 20 damage
+                case "Dice6": return 15;/// set Dice6 got 6 damage
+                case "Dice4": return 5;///set Dice4 got 5 damage
+                default: return 10;/// set the default damage = 10
+            }
+        }
+
+        public void PlayerOne()
+        {
+            Random rm = new Random();
+            int playerResult = 0;
+            int computerResult = 0;
+            int playerScore = 0;
+            int computerScore = 0;
+
+            /// Let the code know what dice and how many dice by make a new list <string / int>, give the dice name and sides for the player. 
+            List<string> diceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> diceSide = new List<int> { 4, 6, 8, 12, 20 };
+
+            ///Let the code know what dice and how many dice bt make a new liset <string / int> </string>, give the dice name and sides for the CPU
+            List<string> cpuDiceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> cpuDiceSide = new List<int> { 4, 6, 8, 12, 20 };
+
+            ///put at here so it can be accumulation.
+            int totalRounds = diceName.Count;
+            ///set the rounds end when all of the dice been used.
+
+            string[] diceTypes = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };/// Letting the code know that diceTypes [] = {Dice4 to Dice20}
+
+            for (int round = 1; round <= totalRounds; round++)
+            {
+                System.Threading.Thread.Sleep(2000); ///Stop for 2 sec to wait the result.
+
+                int prindex = rm.Next(diceSide.Count);
+                int sides = diceSide[prindex];
+                /// randomly chosen dice from index and knowing the dice and sides from it. --- by seeing the "List" up there.
+
+
+                Console.WriteLine($"\n===== Round {round}/{totalRounds} =====");
+                /// by using \n so it'll shows the countinue of the lines.
+                string chosenDice = diceName[prindex];
+
+
+                int d4 = rm.Next(1, 5);
+                int d6 = rm.Next(1, 7);
+                int d8 = rm.Next(1, 9);
+                int d12 = rm.Next(1, 13);
+                int d20 = rm.Next(1, 21);
+                int[] diceResults = { d4, d6, d8, d12, d20 }; /// Letting the code know that diceResults [] = {d4 to d20}
+                int dc = diceResults[rm.Next(diceResults.Length)]; ///using Length without -1 is because dont need max. By Random dicResults.
+
+                string playerChoseDicMessage = "Chose your fate by type 1 to 5.";
+                Console.WriteLine(playerChoseDicMessage);
+                string userInput = "";
+                while (true) ///if false will stay in the loop
+                {
+                    string playerRetypeMessage = " > T Y P E 1, 2, 3, 4 or 5 @_@ ";
+                    userInput = Console.ReadLine(); /// player can type (userInput)  by using Console (show when code is running) ReadLine (place to type, ReadLine for Read).
+                    Console.WriteLine();
+
+                    if (userInput == "1") /// if player type 1, this code will open and show "you got {the random dice you get (Dice4 to Dice20) } ~~~".
+                    {
+                        Console.WriteLine($"> You got {chosenDice} ~~~");
+                        break; /// only when player type down 1 to 5, than they can continue. (break the loop)
+                    }
+                    else if (userInput == "2")
+                    {
+                        Console.WriteLine($"> You got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "3")
+                    {
+                        Console.WriteLine($"> You got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "4")
+                    {
+                        Console.WriteLine($"> You got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "5")
+                    {
+                        Console.WriteLine($"> You got {chosenDice} ~~~");
+                        break;
+                    }
+                    else { Console.WriteLine(" > Please Choose Again <"); } ///No break so will get back to the choosing part.
+                    Console.WriteLine();
+                    Console.WriteLine(playerRetypeMessage);
+                }
+
+                Console.WriteLine();
+                if (chosenDice == "Dice4") ///when Dice4 jump out, the player can know the points they got.
+                {
+                    Console.WriteLine($"{d4} Points");
+                    playerResult = d4;
+                }
+                else if (chosenDice == "Dice6")
+                {
+                    Console.WriteLine($"{d6} Points");
+                    playerResult = d6;
+                }
+                else if (chosenDice == "Dice8")
+                {
+                    Console.WriteLine($"{d8} Points");
+                    playerResult = d8;
+                }
+                else if (chosenDice == "Dice12")
+                {
+                    Console.WriteLine($"{d12} Points");
+                    playerResult = d12;
+                }
+                else if (chosenDice == "Dice20")
+                {
+                    Console.WriteLine($"{d20} Points");
+                    playerResult = d20;
+                }
+
+                Console.WriteLine();
+                int cpuindex = rm.Next(cpuDiceName.Count);
+                string[] diceType = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+                string chosenDic = cpuDiceName[cpuindex];
+                int cpuSide = cpuDiceSide[cpuindex];
+
+                if (chosenDic == "Dice4")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("-- CPU got Dice4");
+                    Console.WriteLine($" {d4} points");
+                    computerResult = d4;
+                }
+                else if (chosenDic == "Dice6")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"-- CPU got Dice6");
+                    Console.WriteLine($" {d6} points");
+                    computerResult = d6;
+                }
+                else if (chosenDic == "Dice8")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"-- CPU got Dice8");
+                    Console.WriteLine($" {d8} points");
+                    computerResult = d8;
+                }
+                else if (chosenDic == "Dice12")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"-- CPU got Dice12");
+                    Console.WriteLine($" {d12} points");
+                    computerResult = d12;
+                }
+                else if (chosenDic == "Dice20")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"-- CPU got Dice20");
+                    Console.WriteLine($" {d20} points");
+                    computerResult = d20;
+                }
+
+
+                Console.WriteLine();
+                if (computerResult > playerResult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "You lose at CPU this round ~~ +_+" + " <<<< ");
+                    Console.WriteLine();
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" >> You had taken {damage} damage!! TAT ");
+                    player.TakeDamage(damage);
+
+                    computerScore += 1;
+
+                    if (player.hp <= 0)
+                    {
+                        Console.WriteLine("\n ==================== GAME OVER GG =====================");
+                        Console.WriteLine("\n ====================== YOU DIED ========================");
+                        break;
+                    }
+                }
+                else if (computerResult < playerResult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "You WIN this round!!" + " <<<< ");
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" > Monster takes {damage} damage ");
+                    bool dead = player.HurtMonster(damage);
+                    playerScore += 1;
+
+                    if (dead)
+                    {
+                        Console.WriteLine(" >> The Monster ran away ");
+                        break;
+                    }
+                }
+                else if (computerResult == playerResult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "It's a tie =.=" + " <<<< ");
+                    playerScore += 1;
+                    computerScore += 1;
+                }
+                Console.WriteLine();
+
+                ///removed the dice that had been used. removed both dice and sides from the index.
+                diceName.RemoveAt(prindex);
+                diceSide.RemoveAt(prindex);
+
+                if (diceName.Count > 0)
+                ///check if there still got any dice, if < 0 than it'll stop.
+                {
+                    System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                    Console.WriteLine(" >> Your remain FATE :");
+                    Console.WriteLine();
+                    ///let the player know if there Stll Got dice or not.
+                    for (int i = 0; i < diceName.Count; i++)
+                    /// use a loop to print the dice. (i == 0) the first dice, when ++ than (i == 1) the scond dice.
+                    {
+                        if (i == 0)
+                        ///print the dice name.
+                        {
+                            Console.WriteLine(" >>> " + diceName[i] + " <<< ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" >>> " + diceName[i] + " <<< ");
+                        }
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine("  - - - - - - - - - - - - - ");
+
+                cpuDiceName.RemoveAt(cpuindex);
+                cpuDiceSide.RemoveAt(cpuindex);
+
+                if (cpuDiceName.Count > 0)
+                {
+                    Console.WriteLine(" > CPU still got :");
+                    Console.WriteLine();
+                    for (int i = 0; i < cpuDiceName.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                    }
+                }
+                Console.WriteLine();
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine(" Player: " + playerScore + " points" + $" < Round {round} get: " + playerResult + " >" + " " + "----" + " " + " Computer: " + computerScore + " points" + $" < Round {round} get: " + computerResult + " >");
+                Console.WriteLine();
+            }
+
+            if (player.MonsterHP <= 0)
+            {
+                Console.WriteLine(" > You kill the monster!");
+            }
+            else if (player.hp <= 0)
+            {
+                Console.WriteLine(" > You were defeated... ");
+                Console.WriteLine(" > You ran away... ");
+            }
+            else
+            {
+                Console.WriteLine(" > The fight ends.");
+                Console.WriteLine(" > You return to the room... ");
+            }
+
+            System.Threading.Thread.Sleep(1300); ///Stop for 1.3 sec to wait the result.
+                                                 ///rounds end
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\n              ******** GAME RESULT ******");
+            Console.WriteLine();
+            if (playerScore > computerScore) ///if playerrescore higher than cpuscore than print.
+            {
+                Console.WriteLine("Your a lucky player ~~ HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerScore);
+                Console.WriteLine(" >> CPU: " + computerScore);
+            }
+            else if (playerScore < computerScore)///if playerscore smaller than cpuscore than print.
+            {
+                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerScore);
+                Console.WriteLine(" >> CPU: " + computerScore);
+            }
+            else
+            {
+                Console.WriteLine("NT you got a tied, with CPU ? NT HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerScore);
+                Console.WriteLine(" >> CPU: " + computerScore);
+            }
+        }
+
+        public void ComputerOne()
+        {
+            Random rand = new Random();
+
+            int playerresult = 0;
+            int computerresult = 0;
+            int playerscore = 0;
+            int computerscore = 0;
+
+            List<string> cpuDiceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> cpuDiceSide = new List<int> { 4, 6, 8, 12, 20 };
+
+            List<string> diceName = new List<string> { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+            List<int> diceSides = new List<int> { 4, 6, 8, 12, 20 };
+
+
+            int totalRounds = diceName.Count;
+
+            string[] diceType = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+
+            for (int round = 1; round <= totalRounds; round++)
+            {
+                System.Threading.Thread.Sleep(2000); ///Stop for 2 sec to wait the result.
+
+                int cpuindex = rand.Next(cpuDiceSide.Count);
+                int cpuSide = cpuDiceSide[cpuindex];
+
+                Console.WriteLine($"\n===== Round {round}/{totalRounds} =====");
+                string chosenDic = cpuDiceName[cpuindex];
+
+                int d4 = rand.Next(1, 5);
+                int d6 = rand.Next(1, 7);
+                int d8 = rand.Next(1, 9);
+                int d12 = rand.Next(1, 13);
+                int d20 = rand.Next(1, 21);
+
+                if (chosenDic == "Dice4")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" > CPU got Dice4");
+                    Console.WriteLine($"{d4} points");
+                    computerresult = d4;
+                }
+                else if (chosenDic == "Dice6")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" > CPU got Dice6");
+                    Console.WriteLine($"{d6} points");
+                    computerresult = d6;
+                }
+                else if (chosenDic == "Dice8")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" > CPU got Dice8");
+                    Console.WriteLine($"{d8} points");
+                    computerresult = d8;
+                }
+                else if (chosenDic == "Dice12")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" > CPU got Dice12");
+                    Console.WriteLine($"{d12} points");
+                    computerresult = d12;
+                }
+                else if (chosenDic == "Dice20")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" > CPU got Dice20");
+                    Console.WriteLine($"{d20} points");
+                    computerresult = d20;
+                }
+
+                Console.WriteLine();
+                int prindex = rand.Next(diceSides.Count);
+                int sides = diceSides[prindex];
+                string chosenDice = diceName[prindex];
+
+                string[] diceTypes = { "Dice4", "Dice6", "Dice8", "Dice12", "Dice20" };
+                string playerchoseDicMessage = "- - - Now, chose your fate --- type 1 to 5.";
+                System.Threading.Thread.Sleep(1500); ///Stop for 1.5 sec to wait the result.
+                Console.WriteLine(playerchoseDicMessage);
+                string userInput = "";
+                while (true)
+                {
+                    string playerretypeMessage = " > T Y P E 1, 2, 3, 4 or 5 @_@";
+                    userInput = Console.ReadLine();
+                    Console.WriteLine();
+
+                    if (userInput == "1")
+                    {
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "2")
+                    {
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "3")
+                    {
+                        Console.WriteLine($">you got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "4")
+                    {
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
+                        break;
+                    }
+                    else if (userInput == "5")
+                    {
+                        Console.WriteLine($"> you got {chosenDice} ~~~");
+                        break;
+                    }
+                    else { Console.WriteLine(" > Please Choose Again <"); }
+                    Console.WriteLine();
+                    Console.WriteLine(playerretypeMessage);
+
+                }
+
+                Console.WriteLine();
+                if (chosenDice == "Dice4")
+                {
+                    Console.WriteLine($"{d4} Points");
+                    playerresult = d4;
+                }
+                else if (chosenDice == "Dice6")
+                {
+                    Console.WriteLine($"{d6} Points");
+                    playerresult = d6;
+                }
+                else if (chosenDice == "Dice8")
+                {
+                    Console.WriteLine($"{d8} Points");
+                    playerresult = d8;
+                }
+                else if (chosenDice == "Dice12")
+                {
+                    Console.WriteLine($"{d12} Points");
+                    playerresult = d12;
+                }
+                else if (chosenDice == "Dice20")
+                {
+                    Console.WriteLine($"{d20} Points");
+                    playerresult = d20;
+                }
+
+                Console.WriteLine();
+
+                if (computerresult > playerresult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "You lose at CPU this round ~~ +_+" + " <<<< ");
+                    Console.WriteLine();
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" >> You had taken {damage} damage!! TAT ");
+                    player.TakeDamage(damage);
+
+                    computerscore += 1;
+
+                    if (player.hp <= 0)
+                    {
+                        Console.WriteLine("\n ==================== GAME OVER GG =====================");
+                        Console.WriteLine("\n ====================== YOU DIED ========================");
+                        break;
+                    }
+                }
+                else if (computerresult < playerresult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "You WIN this round!!" + " <<<< ");
+                    int damage = GetDiceDamage(chosenDice);
+                    Console.WriteLine($" > Monster takes {damage} damage ");
+                    bool dead = player.HurtMonster(damage);
+                    playerscore += 1;
+
+                    if (dead)
+                    {
+                        Console.WriteLine(" >> The Monster ran away ");
+                        break;
+                    }
+                }
+                else if (computerresult == playerresult)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" >>>> " + "It's a tie =.=" + " <<<< ");
+                    playerscore += 1;
+                    computerscore += 1;
+                }
+                Console.WriteLine();
+
+                diceName.RemoveAt(prindex);
+                diceSides.RemoveAt(prindex);
+
+                if (diceName.Count > 0)
+                ///check if there still got any dice, if < 0 than it'll stop.
+                {
+                    System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                    Console.WriteLine(" >> Your remain FATE :");
+                    Console.WriteLine();
+                    ///let the player know if there Stll Got dice or not.
+                    for (int i = 0; i < diceName.Count; i++)
+                    /// use a loop to print the dice. (i == 0) the first dice, when ++ than (i == 1) the scond dice.
+                    {
+                        if (i == 0)
+                        ///print the dice name so the player can know what fate he/she still got left.
+                        {
+                            Console.WriteLine(" >>> " + diceName[i] + " <<< ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" >>> " + diceName[i] + " <<< ");
+                        }
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine("  - - - - - - - - - - - - - ");
+
+                cpuDiceName.RemoveAt(cpuindex);
+                cpuDiceSide.RemoveAt(cpuindex);
+
+                if (cpuDiceName.Count > 0)
+                {
+                    Console.WriteLine(" > CPU still got :");
+                    Console.WriteLine();
+                    for (int i = 0; i < cpuDiceName.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" > " + cpuDiceName[i] + " < ");
+                        }
+                    }
+                }
+
+
+                Console.WriteLine();
+                System.Threading.Thread.Sleep(1000); ///Stop for 1 sec to wait the result.
+                Console.WriteLine(" Player: " + playerscore + " points" + $" < Round {round} get: " + playerresult + " >" + " " + "----" + " " + " Computer: " + computerscore + " points" + $" < Round {round} get: " + computerresult + " >");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("\n             ****** GAME RESULT ******");
+            Console.WriteLine();
+            if (playerscore > computerscore)
+            {
+                Console.WriteLine("Your a lucky player ~~ HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
+            else if (playerscore < computerscore)
+            {
+                Console.WriteLine("DID YOU JUST LOSE AT CPU ? HA.. NT... HA HA... NT NT");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
+            else
+            {
+                Console.WriteLine("NT you got a tied, with CPU ? NT HA");
+                Console.WriteLine();
+                Console.WriteLine(" >> player: " + playerscore);
+                Console.WriteLine(" >> CPU: " + computerscore);
+            }
+        }
+    }
 }

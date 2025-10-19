@@ -27,13 +27,9 @@ namespace AlbertDiceGame.Scripts
                                 |  _| (_| | ||  __/ | |_| | | (_|  __/ | |_| | (_| | | | | | |  __/   
                                 |_|  \__,_|\__\___| |____/|_|\___\___|  \____|\__,_|_| |_| |_|\___|");
 
-            Console.WriteLine();
-            Console.WriteLine("My name is Albert");
-            Console.WriteLine("This is a dice game we came up with.");
-            Console.WriteLine();
-
-            Player pr = new Player();
-            pr.Introduction();/// open the playerone in the Player.cs
+            Combatant cmbt = new Combatant();
+            cmbt.Introduction();
+            cmbt.GameStart();
         }
     }
     
